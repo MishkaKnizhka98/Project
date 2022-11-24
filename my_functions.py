@@ -70,3 +70,25 @@ def pd_to_np(x, y):
     y = y.astype('float64')
 
     return x, y
+
+
+
+
+
+def normalize(x):
+    """
+
+    Performs feature scaling in the range [0,1] by division of each feature by its maximum value.
+
+    Parameters:
+        x (ndarray): Training set (features of students)
+
+    Returns:
+        x (ndarray): Training set exposed to feature scaling (input to the model)
+    """
+
+    x = x.astype('float64')
+    for column in range(x.shape[1]):
+        x[:, column] = x[:, column] / x[:, column].max()
+
+    return x
