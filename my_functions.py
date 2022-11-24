@@ -47,3 +47,26 @@ def load_data(file_name):
     y_train = data["G3"]
 
     return x_train, y_train
+
+
+def pd_to_np(x, y):
+    """
+
+    Converts a Dataframe to a Numpy array.
+
+    Parameters:
+        x (pandas dataframe): Training set as DataFrame
+        y (pandas dataframe): Output set as DataFrame
+
+    Returns:
+        x (ndarray): Training set as Numpy array
+        y (ndarray): Output set as Numpy array
+    """
+
+    x = x.to_numpy()
+    y = y.to_numpy()
+
+    x = x.astype('float64')
+    y = y.astype('float64')
+
+    return x, y
