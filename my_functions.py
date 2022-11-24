@@ -3,6 +3,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 import copy
 from sklearn.preprocessing import LabelEncoder
+from sklearn.linear_model import LinearRegression
 
 
 def load_data(file_name):
@@ -92,3 +93,25 @@ def normalize(x):
         x[:, column] = x[:, column] / x[:, column].max()
 
     return x
+
+
+def compute_model(x, y):
+    """
+
+    Computes a linear regression model using the LinearRegression class.
+
+    Parameters:
+        x (ndarray): Shape (m,n) Input for the model
+        y (ndarray): Shape (m,) Output for the model
+
+    Returns:
+        w (ndarray): Shape (n,) Fitted parameters of the model (coefficients)
+        b (scalar): Fitted parameter of the model (intercept)
+    """
+    model = LinearRegression()
+    model.fit(x, y)
+
+    w = model.coef_
+    b = model.intercept_
+
+    return w, b
