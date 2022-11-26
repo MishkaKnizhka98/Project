@@ -9,14 +9,17 @@ from sklearn.linear_model import LinearRegression
 def load_data(file_name):
     """
     Loads the data from a student dataset file_name and extracts the columns 
-    ["school", "sex", "age", "Mjob", "Fjob", "higher", "activities", "G1", "G2", "G3"], where the column "G3" is the output 
-    of the model.
+    ["school", "sex", "age", "Mjob", "Fjob", "higher", "activities", "G1", "G2", "G3"]. 
+    The columns ["school", "sex", "age", "Mjob", "Fjob", "higher", "activities", "G1", "G2"] are assigned to the input x of the model.
+    The column "G3" (final grade) is assigned to the output y of the model.
+    
 
     Parameters:
         file_name (string): Path to a student dataset
 
     Returns:
-        data (pandas dataframe): Extracted data (m - number of examples (rows), n - number of features (columns))
+        x (pandas dataframe): Shape(m,n) (m - number of examples (rows), n - number of features (columns)) Input to the model
+        y (pandas dataframe): Shape(m,) Output of the model
     """
     # importing the dataset
     data = pd.read_csv(file_name)
@@ -24,29 +27,27 @@ def load_data(file_name):
     # Editing the raw dataset to get x and y
     data = data[["school", "sex", "age", "Mjob", "Fjob", "higher", "activities", "G1", "G2", "G3"]]
     
-    return data
-
-
-
-
-def split_data(data):
-    """
-    
-    Converts data to input x and output y of the model. 
-    The input includes the features ["school", "sex", "age", "Mjob", "Fjob", "higher", "activities", "G1", "G2"].
-    The output contains the final grade "G3". 
-    In order to perfrom linear regression, the function turns categoraical features into dummy matrices.
-    
-    Parameters:
-        data (pandas dataframe): Data to be splitted into the input x to the model and the output y of the model.
-        
-    Retruns:
-        x (pandas dataframe): Input to the model
-        y (pandas dataframe): Output of the model
-    """
-
     #Eliminating rows with NaN values
     data = data.dropna()
+    
+    x = data.drop(["G3"], axis=1)
+    y = data["G3"]
+    
+    return x, y
+
+
+
+
+def dummy_matrices(data):
+    """
+    Turns categoraical features into dummy matrices.
+    
+    Parameters:
+        data (pandas dataframe): Data with categorical features
+        
+    Returns:
+        data (pandas dataframe): Data with dummy matrices
+    """
 
     # Turning categorical features into numbers
     # Dummy matrices + Label Encoding
@@ -63,11 +64,7 @@ def split_data(data):
             data = pd.concat([data, dummies], axis=1)
             data = data.drop([column], axis=1)
 
-    # Extracting x_train and y_train from the table
-    x = data.drop(["G3"], axis=1)
-    y = data["G3"]
-
-    return x, y
+    return data
 
 
 def pd_to_np(x):
