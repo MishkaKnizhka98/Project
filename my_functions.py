@@ -127,3 +127,65 @@ def compute_model(x, y):
     b = model.intercept_
 
     return w, b
+
+
+
+
+
+
+def new_student(x):
+    """
+    
+    Creates an array of features for a new student. 
+    
+    Parameters:
+        x (pandas dataframe): Shape(m,n) Training set to the model. Defines the features for a new student
+        
+    Returns:
+        new (pandas dataframe): Shape(1,n) A new example of a student
+    """
+    
+    new_data = {}
+    for column in x.columns:
+        if x[column].dtype == "object":
+            inp = input("Please write the " + column + " of a student (" + str(x[column].unique()) + "): ")
+            while inp not in x[column].unique():
+                print("Invalid feature! Please try again!")
+                inp = input("Please write the " + column + " of a student (" + str(x[column].unique()) + "): ")
+                
+        elif column == "age":
+            while True:
+                try:
+                    inp = int(input("Please write the " + column +" of a student (from " + str(15) + " to " + str(25) + "): "))
+                    while inp < 15 or inp > 25:
+                        print("Invalid feature! Please try again!")
+                        inp = int(input("Please write the " + column +" of a student (from " + str(15) + " to " + str(25) + "): "))
+                except ValueError: 
+                    print("Value Error for age! Please try again!")
+                    continue
+                
+                if inp >= 15 or inp <= 25:
+                    break
+        
+        
+        elif column == "G1" or column == "G2":
+            while True:
+                try:
+                    inp = int(input("Please write the " + column +" of a student (from " + str(0) + " to " + str(20) + "): "))
+                    while inp < 0 or inp > 20:
+                        print("Invalid grade! Please try again!")
+                        inp = int(input("Please write the " + column +" of a student (from " + str(0) + " to " + str(20) + "): "))
+                except ValueError:
+                    print("Value Error for grade! Please try again!")
+                    continue
+                    
+                if inp >= 0 or inp <= 20:
+                    break
+                    
+                    
+        new_data[column] = inp
+    
+    new = pd.DataFrame(new_data, index=[0])
+        
+        
+    return new
