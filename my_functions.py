@@ -189,3 +189,28 @@ def new_student(x):
         
         
     return new
+
+
+
+
+
+
+
+
+def dummy_matrix_of_new_student(new_student, x):
+    """
+    Turns categoraical features of a new student into dummy matrices.
+    
+    Parameters:
+        new_student (pandas dataframe): A new student array with categorical features
+                  x (pandas dataframe): Training set as DataFrame
+        
+    Returns:
+        new_student_dummy (pandas dataframe): The new student array with dummy matrices
+    """
+    
+    x_new = x.append(new_student)
+    new_dummy = dummy_matrices(x_new)
+    new_student_dummy = new_dummy.iloc[-1]
+    
+    return new_student_dummy
