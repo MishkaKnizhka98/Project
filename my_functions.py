@@ -60,13 +60,13 @@ def dummy_matrices(data):
         else:
             non_num[column] = non_num[column].apply(lambda x: column[0].lower() + "_" + x)
             dummies = pd.get_dummies(non_num[column])
-            dummies = dummies.drop([dummies.columns[-1]], axis=1)
+            #dummies = dummies.drop([dummies.columns[-1]], axis=1)
             data = pd.concat([data, dummies], axis=1)
             data = data.drop([column], axis=1)
 
     return data
 
-
+'''
 def pd_to_np(x):
     """
 
@@ -105,7 +105,7 @@ def normalize(x):
         x[:, column] = x[:, column] / x[:, column].max()
 
     return x
-
+'''
 
 def compute_model(x, y):
     """
@@ -125,8 +125,9 @@ def compute_model(x, y):
 
     w = model.coef_
     b = model.intercept_
+    r_sq = model.score(x,y)
 
-    return w, b
+    return w, b, r_sq
 
 
 
@@ -146,7 +147,9 @@ def new_student(x):
     """
     
     new_data = {}
+    
     for column in x.columns:
+        #inp = 0
         if x[column].dtype == "object":
             inp = input("Please write the " + column + " of a student (" + str(x[column].unique()) + "): ")
             while inp not in x[column].unique():
@@ -214,3 +217,69 @@ def dummy_matrix_of_new_student(new_student, x):
     new_student_dummy = new_dummy.iloc[-1]
     
     return new_student_dummy
+
+
+
+
+def predict(example, w, b):
+    """
+    
+    Predicts the target y (final grade G3) of an example using the trained model with the parameters w and b.
+    
+    Parameters:
+        example (pandas dataframe): An example of a student
+        w (ndarray): Parameters of the trained model
+        b (scalar):  Parameter of the trained model
+        
+    Returns:
+        y_pred (scalar): predicted terget
+    """
+    y_pred = np.dot(w,example) + b
+    return y_pred
+
+
+
+
+
+
+
+
+
+def plot(x, y, w, b):
+    """
+    
+    Created plots of dependence of the output y and its predicted values on numerical values of input x.
+    
+    Parameters:
+        x (pandas dataframe): input to the model 
+        y (pandas dataframe): output of the model
+        w (ndarray): Parameters of the trained model
+        b (scalar):  Parameter of the trained model
+        
+    Returns:
+        None
+    """
+    
+    m = x.shape[0]
+    predicted = np.zeros(m)
+    x_dummy = dummy_matrices(x)
+    for i in range(m):
+        predicted[i] = np.dot(w_pred, x_dummy.iloc[i]) + b_pred
+    
+    
+    num_column = x.select_dtypes(include="int64")
+    i= 1   
+    plt.figure(figsize=(20, 7))
+    plt.subplots_adjust(top=0.8)
+    for column in num_column.columns:
+        plt.subplot(1,len(num_column.columns),i)
+        plt.scatter(x[column], predicted, c = "b")
+        plt.scatter(x[column], y, c = "r", marker = "x")
+        plt.title("Dependence of G3 vs " + column)
+        plt.ylabel("G3")
+        plt.xlabel(column)
+        i += 1
+    plt.suptitle("Data values (red crosses) vs predicted values (blue dots)", fontsize = 20, y = 1)
+    plt.show()
+        
+         
