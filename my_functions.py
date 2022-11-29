@@ -221,6 +221,9 @@ def dummy_matrix_of_new_student(new_student, x):
 
 
 
+
+
+
 def predict(example, w, b):
     """
     
