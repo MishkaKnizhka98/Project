@@ -50,8 +50,6 @@ def test_dummy_matrices_performed_correctly():
     the feature "school" will be splitted into three columns.
     For binary categorical features one value is indicated by 1, whereas 0 is assigned to the second value.
 
-
-
     GIVEN: the data is splitted into arrays x and y, x is the training set with categorical features:
            ["school" -> 3 values, "Mjob" -> 5 values, "Fjob" -> 4 values, "sex", "higher", "activities" -> binary features]
     WHEN: each column with categorical features is decomposed into columns with indicator value,
@@ -75,10 +73,24 @@ def test_data_with_dummy_matrices_has_no_categorical_features(dummy_data):
 
 def test_dummy_matrices_do_not_change_data_with_numeric_values():
     """
-    This function tests that dummy_matrices() does not alter data with numeric features.
+    This function tests a limit case when dummy_matrices() does not alter data with numeric features.
     """
     x_num, y_num = load_data("test_data/test_data_numeric_features.csv")
     assert dummy_matrices(x_num).equals(x_num)
+
+
+
+
+
+def test_compute_model():
+    """
+    This function tests that compute_model() builds linear regression correctly.
+
+    GIVEN:
+    WHEN:
+    THEN:
+    """
+
 
 
 
