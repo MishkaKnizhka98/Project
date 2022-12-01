@@ -1,7 +1,6 @@
-import pandas as pd
 import pytest
 from my_functions import *
-
+import math
 
 @pytest.fixture
 def data():
@@ -85,12 +84,39 @@ def test_dummy_matrices_do_not_change_data_with_numeric_values():
 def test_compute_model():
     """
     This function tests that compute_model() builds linear regression correctly.
+    For this case a simple dataset with zero variation is used.
+    Slope w, intercept b and coefficient of determination r_sq are calculated.
 
-    GIVEN:
-    WHEN:
-    THEN:
+    GIVEN: a model is given simple input x and output y from a linear function: y(x) = 3x + 2
+    WHEN: a class LinearRegression is used to fit the model
+    THEN: w and b are expected to be equal to 3 and 2, respectively, r_sq is expected to be 1
     """
+    x = [1, 2, 3]
+    y = [5, 8, 11]
 
+    x = pd.DataFrame(x)
+    y = pd.DataFrame(y)
+
+    w, b, r_sq = compute_model(x, y)
+
+    assert math.isclose(w, 3) and math.isclose(b, 2) and r_sq == 1
+
+
+
+def test_compute_model_with_single_point():
+    """
+    This function tests that a linear regression model is not well-defined for single samples
+    and will return a NaN value for r_sq,if the number of samples is less than two.
+    """
+    x = [10]
+    y = [10]
+
+    x = pd.DataFrame(x)
+    y = pd.DataFrame(y)
+
+    w, b, r_sq = compute_model(x, y)
+
+    assert math.isnan(r_sq)
 
 
 
