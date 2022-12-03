@@ -59,7 +59,7 @@ def test_dummy_matrices_performed_correctly():
     x, y = load_data("test_data/test_data.csv")
     x_dummy = dummy_matrices(x)
     assert x_dummy.shape[1] == 18
-    assert x_dummy["s_Moscow"].iloc[1] == 1
+    assert x_dummy.loc[1, "s_Moscow"] == 1
 
 
 
@@ -125,14 +125,15 @@ def test_new_student():
     """
     This function tests that new_student() creates a 1-row table with a new student's features.
 
-    GIVEN:
+    GIVEN: 
     WHEN:
     THEN:
 
     """
 x, y = load_data("test_data/test_data.csv")
 alex = new_student(x)
-assert alex["school"] == "Moscow"
+assert (alex["school"] == "Moscow").any()
+
 
 
 
