@@ -58,7 +58,7 @@ def dummy_matrices(data):
             data[column] = encoder.fit_transform(data[column])
 
         else:
-            non_num[column] = non_num[column].apply(lambda x: column[0].lower() + "_" + x)
+            non_num.loc[:,column] = non_num.loc[:,column].apply(lambda x: column[0].lower() + "_" + x)
             dummies = pd.get_dummies(non_num[column])
             #dummies = dummies.drop([dummies.columns[-1]], axis=1)
             data = pd.concat([data, dummies], axis=1)
@@ -149,7 +149,7 @@ def new_student(x):
     new_data = {}
     
     for column in x.columns:
-        #inp = 0
+        inp = ""
         if x[column].dtype == "object":
             inp = input("Please write the " + column + " of a student (" + str(x[column].unique()) + "): ")
             while inp not in x[column].unique():
@@ -267,7 +267,7 @@ def plot(x, y, w, b):
     predicted = np.zeros(m)
     x_dummy = dummy_matrices(x)
     for i in range(m):
-        predicted[i] = np.dot(w_pred, x_dummy.iloc[i]) + b_pred
+        predicted[i] = np.dot(w, x_dummy.iloc[i]) + b
     
     
     num_column = x.select_dtypes(include="int64")

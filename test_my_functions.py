@@ -121,5 +121,20 @@ def test_compute_model_with_single_point():
 
 
 
+def test_new_student():
+    """
+    This function tests that new_student() creates a 1-row table with a new student's features.
+
+    GIVEN:
+    WHEN:
+    THEN:
+
+    """
+x, y = load_data("test_data/test_data.csv")
+alex = new_student(x)
+assert alex["school"] == "Moscow"
+
+
+
 
 
