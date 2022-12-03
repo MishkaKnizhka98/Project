@@ -20,7 +20,7 @@ def test_data_load_correctly():
     x consists of columns ["school", "sex", "age", "Mjob", "Fjob", "higher", "activities", "G1", "G2"].
     y consists of the column ["G3"].
 
-    GIVEN: a file test_load_data.csv is being opened with read_csv() method
+    GIVEN: a file test_data.csv is being opened with read_csv() method
     WHEN: the data is splitted into arrays x and y
     THEN: the result consists of the arrays x and y
     """
@@ -125,14 +125,38 @@ def test_new_student():
     """
     This function tests that new_student() creates a 1-row table with a new student's features.
 
-    GIVEN: 
-    WHEN:
-    THEN:
+    GIVEN: a training set x is formed from the dataset test_data.csv
+    WHEN: a user inputs features to a new student Alex. In order to make the test pass,
+    Alex's school should be indicated as "Moscow"
+    THEN: a variable alex is assigned to a 1-row pandas dataframe
 
     """
 x, y = load_data("test_data/test_data.csv")
 alex = new_student(x)
 assert (alex["school"] == "Moscow").any()
+
+
+
+def test_two_new_students():
+    """
+    This function tests that two new students created with new_student() and given different features,
+    will be different each other.
+
+    GIVEN: a training set x is formed from the dataset test_data.csv
+    WHEN: a user inputs features to new students Alex and Lorenzo. In order to make the test pass,
+    at least one Alex's feature should differ from identical Lorenzo's feature.
+    THEN: variables alex and lorenzo are assigned to 1-row pandas dataframes and then compared
+    """
+
+    x, y = load_data("test_data/test_data.csv")
+
+    alex = new_student(x)
+    print("\n")
+    lorenzo = new_student(x)
+
+    assert lorenzo.equals(alex) == False
+
+
 
 
 
