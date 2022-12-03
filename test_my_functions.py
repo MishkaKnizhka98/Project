@@ -131,9 +131,9 @@ def test_new_student():
     THEN: a variable alex is assigned to a 1-row pandas dataframe
 
     """
-x, y = load_data("test_data/test_data.csv")
-alex = new_student(x)
-assert (alex["school"] == "Moscow").any()
+    x, y = load_data("test_data/test_data.csv")
+    alex = new_student(x)
+    assert (alex["school"] == "Moscow").any()
 
 
 
@@ -159,7 +159,40 @@ def test_two_new_students():
 
 
 
+def test_dummy_matrix_of_new_student():
+    """
+    This function tests that dummy_matrix_of_new_student() correctly decomposes features of a new student
+    into a dummy matrix and indicates binary features with 0 and 1.
+
+    GIVEN: a training set x is formed from the dataset test_data.csv and a new student Alex is created
+    with new_student(). In order to make the test pass, Alex's school should be indicated as "Moscow".
+    The variable alex is assigned to a 1-row pandas dataframe with the new student's features
+    WHEN: alex and x are exposed to dummy_matrix_for_new_student()
+    THEN: categorical features are decomposed into dummy matrices, binary features are replaced with
+    indicators 0 and 1. In case Alex's school is Moscow, the feature value s_Moscow is equal to 1
+    """
+    x, y = load_data("test_data/test_data.csv")
+    alex = new_student(x)
+
+    alex = dummy_matrix_of_new_student(alex, x)
+    assert (alex["s_Moscow"] == 1).any()
 
 
 
+
+
+def test_dummy_matrix_for_new_student_has_no_categorical_features():
+    """
+    This function tests that after applying dummy_matrix_for_new_student() to a new student's features they will not contain
+    categorical features.
+    """
+    x, y = load_data("test_data/test_data.csv")
+    alex = new_student(x)
+    alex = dummy_matrix_of_new_student(alex, x)
+    assert alex.dtype == "int64"
+
+
+
+def test_predict():
+    pass
 
