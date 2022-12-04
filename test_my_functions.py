@@ -197,8 +197,9 @@ def test_predict():
     """
     This function tests that predict() correctly predicts the output y using linear regression.
 
-    GIVEN: simple input x and output y are given from a linear function: y(x) = 3x + 2.
+    GIVEN: simple input x and output y arrays are given from a linear function: y(x) = 3x + 2
     WHEN: compute_model() fits the model and returns trained parameters w = 3 and b = 2.
+          y_pred is assigned to a predicted output for new input x_pred
     THEN: if x_pred = 4, then y_pred should be 14
     """
     x = [1, 2, 3]
@@ -211,4 +212,31 @@ def test_predict():
 
     y_pred = predict(4, w, b)
 
-    
+    assert math.isclose(y_pred, 14)
+
+
+
+def test_that_predicted_output_higher_than_twenty_notified():
+    """
+    This function tests that if a predicted output is higher than 20 (maximum G3 value),
+    then a user will get a notification about it.
+
+    GIVEN: simple input x and output y arrays are given from a linear function: y(x) = 3x + 2
+    WHEN: compute_model() fits the model and returns trained parameters w = 3 and b = 2.
+          y_pred is assigned to a predicted output for new input x_pred
+    THEN: if x_pred = 10, then y_pred should be 32 and the alert
+          "The new student's final grade G3 is higher than 20!" is raised
+
+    """
+
+    x = [1, 2, 3]
+    y = [5, 8, 11]
+
+    x = pd.DataFrame(x)
+    y = pd.DataFrame(y)
+
+    w, b, r_sq = compute_model(x, y)
+
+    y_pred = predict(10, w, b)
+
+    assert math.isclose(y_pred, 32)

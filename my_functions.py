@@ -238,6 +238,10 @@ def predict(example, w, b):
         y_pred (scalar): predicted target
     """
     y_pred = np.dot(w,example) + b
+
+    if y_pred > 20:
+        print("The new student's final grade G3 is higher than 20!")
+
     return y_pred
 
 
