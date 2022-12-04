@@ -235,7 +235,7 @@ def predict(example, w, b):
         b (scalar):  Parameter of the trained model
         
     Returns:
-        y_pred (scalar): predicted terget
+        y_pred (scalar): predicted target
     """
     y_pred = np.dot(w,example) + b
     return y_pred

@@ -194,5 +194,21 @@ def test_dummy_matrix_for_new_student_has_no_categorical_features():
 
 
 def test_predict():
-    pass
+    """
+    This function tests that predict() correctly predicts the output y using linear regression.
 
+    GIVEN: simple input x and output y are given from a linear function: y(x) = 3x + 2.
+    WHEN: compute_model() fits the model and returns trained parameters w = 3 and b = 2.
+    THEN: if x_pred = 4, then y_pred should be 14
+    """
+    x = [1, 2, 3]
+    y = [5, 8, 11]
+
+    x = pd.DataFrame(x)
+    y = pd.DataFrame(y)
+
+    w, b, r_sq = compute_model(x, y)
+
+    y_pred = predict(4, w, b)
+
+    
