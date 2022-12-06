@@ -1,6 +1,7 @@
 import pytest
 from my_functions import *
 import math
+from unittest import mock
 
 @pytest.fixture
 def data():
@@ -240,3 +241,35 @@ def test_that_predicted_output_higher_than_twenty_notified():
     y_pred = predict(10, w, b)
 
     assert math.isclose(y_pred, 32)
+
+
+
+
+
+
+@mock.patch("my_functions.plt.show")
+
+def test_plot(mock_plot):
+    """
+    This function tests that plot() works correctly by asserting that the method plt.show() is invoked.
+    The approach is to mock plt.show() inside my_functions.py module and to assert that it got called.
+    Since this method is invoked at the end of plot(), if something breaks leading up to plt.show(),
+    this mock will not get called and the test will fail.
+
+    GIVEN: The @mock.patch("my_functions.plt.show") decorator "patches" the plt.show() method
+           imported inside my_functions.py and injects it as a mock object (mock_plot)
+           to the test_plot() as a parameter
+    WHEN:  x and y arrays form the training set from test_data.csv. x array is exposed to dummy_matrices()
+           and returns x_dummy with categorical features replaced by dummy matrices.
+           Inserting x_dummy and y to compute_model(), we train the model and obtain parameters w, b and
+           the coefficient of determination r_sq
+    THEN:  x, y, w and b are put as parameters to plot(), which generates plots with dependencies of
+           numerical features on the target y
+    """
+
+    x, y = load_data("test_data/test_data.csv")
+    x_dummy = dummy_matrices(x)
+    w, b, r_sq = compute_model(x_dummy, y)
+    plot(x, y, w, b)
+    assert mock_plot.called
+
