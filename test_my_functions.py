@@ -4,11 +4,6 @@ import math
 from unittest import mock
 
 @pytest.fixture
-def data():
-    x, y = load_data("test_data/test_data.csv")
-    return x, y
-
-@pytest.fixture
 def dummy_data():
     x, y = load_data("test_data/test_data.csv")
     x_dummy = dummy_matrices(x)
