@@ -1,3 +1,5 @@
+# This module contains all functions that are employed in the linear regression simulation in main.py
+
 import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
@@ -26,13 +28,13 @@ def load_data(file_name):
                 Shape (m,) Output of the model
     """
 
-    # importing the dataset
+    # Importing the dataset from a file
     data = pd.read_csv(file_name)
 
     # Extracting necessary columns from the dataset
     data = data[["school", "sex", "age", "Mjob", "Fjob", "higher", "activities", "G1", "G2", "G3"]]
     
-    #Eliminating rows with NaN values
+    # Eliminating rows with NaN values
     data = data.dropna()
     
     x = data.drop(["G3"], axis=1)
@@ -47,7 +49,7 @@ def load_data(file_name):
 def dummy_matrices(data):
     """
     Turns categorical features of a training dataset into dummy matrices. In particular, each column
-    which has several values to define a categorical feature, is splitted into a set of columns. Each column
+    which has several values to define a categorical feature, is split into a set of columns. Each column
     is assigned to a certain value of the feature and contains indicators 0 and 1. When the student's feature
     is equal the value from a specific column, its indicator will be 1, otherwise, it will be 0.
     For example, the feature "Mjob" has five values
@@ -135,8 +137,8 @@ def new_student(x):
     """
     Creates a new student. The function acquires the features that belong to students in the training set x
     and assigns them to a new student. For each feature a user types into a number within a specific range
-    (for a numeric feature) or an allowable value (for a categorical feature). The function returns a
-    1-row DataFrame with the features of the new student.
+    (15-25 for "age" and 0-20 for "G1" and "G2") or an allowable value (for a categorical feature).
+    The function returns a 1-row DataFrame with the features of the new student.
     
     Parameters:
         ----------
@@ -148,7 +150,8 @@ def new_student(x):
         new : pandas dataframe
                 Shape (1,n) A new example of a student
     """
-    
+
+    #Dictionary to contain new student's features
     new_data = {}
     
     for column in x.columns:
@@ -281,22 +284,23 @@ def plot(x, y, w, b):
         ----------
         None
     """
+
     #Here we predict G3 dor each student in training set x
     m = x.shape[0]
     predicted = np.zeros(m)
     x_dummy = dummy_matrices(x)
     for i in range(m):
         predicted[i] = np.dot(w, x_dummy.iloc[i]) + b
-    
-    
+
+    #Selecting numeric features and plotting them
     num_column = x.select_dtypes(include="int64")
     i= 1   
     plt.figure(figsize=(20, 7))
     plt.subplots_adjust(top=0.8)
     for column in num_column.columns:
-        plt.subplot(1,len(num_column.columns),i)
-        plt.scatter(x[column], predicted, c = "b")
-        plt.scatter(x[column], y, c = "r", marker = "x")
+        plt.subplot(1,len(num_column.columns), i)
+        plt.scatter(x[column], predicted, c="b")
+        plt.scatter(x[column], y, c="r", marker="x")
         plt.title("Dependence of G3 vs " + column)
         plt.ylabel("G3")
         plt.xlabel(column)
