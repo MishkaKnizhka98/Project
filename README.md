@@ -24,9 +24,11 @@ The whole set used to *train* a model is called the **training set** and the pre
 **prediction** or **estimation**.
 
 Linear regression uses linear dependence of a target on input features. That is to say, when there 
-are m input features, the linear regression model is represented by the following function:
+are m input features $x_1, x_2, x_3, \ldots , x_m$ and a target $y$, the linear regression model is represented by the following function:
 
-$$y = 3x + 2$$
+$$y = w_1*x_1 + w_2*x_2 + w_3*x_3 + \ldots + w_m*x_m + b$$
+
+where ${w_1, w_2, w_3, \ldots , w_m}$ and $b$ are **parameters** or **weights** of the model.
 
 
 
