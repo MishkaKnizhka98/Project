@@ -1,5 +1,6 @@
 # Building a Linear Regression model to predict final grades of students
 
+**Here I put some abstract**
 The goal of this project was to apply machine learning to predict the final 
 grade of students. For this purpose I created an algorithm that builds a linear regression 
 model based on a dataset of students from two high schools in Portugal. Using this model, it is 
@@ -8,6 +9,32 @@ possible to predict a new student's final grade for a certain subject.
 
 (We won't... leave... without... the data! (Interstellar))
 ## Introduction
+
+### Linear Regression Tutorial
+This section represents a brief theoretical background of linear regression and how to implement 
+it in Python. Suppose that one has a set of observations (**examples**) that possess some 
+information (**features**) of each observation. For example, it could be a dataset of people, 
+whose features are their gender, age, working experience, level education and salary. Then regression analysis is used to 
+find a relation between such features and given a new example, to predict its certain feature on 
+the basis of other features. The function that determines the dependence between features is 
+called a **model**. The feature that we want to compute is called the **output** or the 
+**target** of the model and the other features that are put into the model as parameters, are 
+called the **input** to the model (often input is also called **features** or **input features**). 
+The whole set used to *train* a model is called the **training set** and the predicted output is called a 
+**prediction** or **estimation**.
+
+Linear regression uses linear dependence of a target on input features. That is to say, when there 
+are m input features, the linear regression model is represented by the following function:
+
+$$y = 3x + 2$$
+
+
+
+
+
+
+
+
 
 ### Problem Statement
 
@@ -52,7 +79,8 @@ dummy matrices, *get_dummies()* method is used.
 Once the input dataset is numeric, it is possible to train a linear regression model. 
 
 
-### Linear Regression Tutorial
+
+
 
 
 
