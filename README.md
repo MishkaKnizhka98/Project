@@ -11,7 +11,11 @@ possible to predict a new student's final grade for a certain subject.
 
 ### Problem Statement
 
-This project has two datasets, however, it is possible to apply the algorithm to other datasets 
+The goal of this project is to create a linear regression model to predict the final grade of a 
+student. For this purpose I used a database of students from two high schools in Portugal. Using 
+this model, it is possible to predict a new student's final grade for a certain subject. 
+
+This project uses two datasets, however, it is possible to apply the algorithm to other datasets 
 with the same features. The dataset "student-mat.csv" contains students' grades in Math, 
 the dataset "student-por.csv" contains students' grades in Portuguese. Both datasets consist of 
 32 columns, each of which describes certain information about a student (his/her age, mother's 
@@ -36,6 +40,16 @@ The input to the model includes ["school", "sex", "age", "Mjob", "Fjob", "higher
 "G1", "G2"], the output of the model is the final grade "G3". Since some of the features are 
 categorical (i.e. have non-numeric values), before giving them to the model, it is necessary to 
 turn categorical features into numeric features. To do so, dummy matrices are used. 
+
+Dummy matrices are a set of columns that replace a single categorical feature. Each column 
+represents one of the feature values and has indicators 1, if a training example has 
+this feature value, or 0, if the example does not have this feature value. A simple schematic 
+illustration of dummy matrices is represented below. In order to split categorical features into 
+dummy matrices, *get_dummies()* method is used.
+
+<img src="C:\Users\Admin\Desktop\Project\Images\Dummy_matrices.jpg" width="500" height="600" alt="Fig.1 Dummy matrices (variables) illustration">
+
+Once the input dataset is numeric, it is possible to train a linear regression model. 
 
 
 ### Linear Regression Tutorial
