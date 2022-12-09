@@ -82,4 +82,15 @@ Once the input dataset is numeric, it is possible to train a linear regression m
 
 ## Structure of the project
 
-This project includes three Python code files: **main.py**, **my_functions.py** and **test_my_functions.py**. main.py contains the code to train the linear regression model, to plot the dependence of target feature on numeric features and to predict the final grade for a new student. 
+This project includes three Python code files: **main.py**, **my_functions.py** and **test_my_functions.py**. In main.py I train the linear regression model, to plot the dependence of target feature on numeric features and to predict the final grade for a new student. my_functions.py contains all functions that are used in main.py. test_my_functions.py is used to test the functions. Below there is a brief description of each .py file.
+
+### main.py
+First, I imported my_functions module to get access to all necessary functions. In order to turn off SettingWithCopyWarning alert, I set the option `mode.chained_assignment` to `None`. In order to print the trained parameters w as `numpy.ndarray` to 3 decimal places, I used the `np.set_printoptions()` method.
+
+```
+from my_functions import *
+
+pd.set_option('mode.chained_assignment', None)  # To turn off SettingWithCopyWarning
+np.set_printoptions(formatter={'float': lambda x: "{0:0.3f}".format(x)})  # To print the predicted w to 3 decimals places```
+
+To perform the linear regression, I used the "student-mat.csv" file. Using load_data(), I splitted the dataset into the input features array `x` and target feature `y`. Then 

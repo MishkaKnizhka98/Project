@@ -72,7 +72,7 @@ def dummy_matrices(data):
         ----------
         data : pandas dataframe
                 Shape (m,k) (m - number of examples (rows), k - number of features with dummy matrices (columns), k>=n)
-                 Data with dummy matrices
+                Data with dummy matrices
     """
 
     #Creating a copy of dataframe in order to avoid unpredictable errors coming up due to chained assignments

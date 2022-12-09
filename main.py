@@ -1,6 +1,9 @@
 from my_functions import *
+
 pd.set_option('mode.chained_assignment', None)  # To turn off SettingWithCopyWarning
 np.set_printoptions(formatter={'float': lambda x: "{0:0.3f}".format(x)})  # To print the predicted w to 3 decimals places
+
+
 
 # In order to train the model to predict final grade in Math, student-mat.csv is loaded
 x, y = load_data("data/student-mat.csv")
