@@ -72,7 +72,7 @@ illustration of dummy matrices is represented below. In order to split categoric
 dummy matrices, `get_dummies()` method is used.
 
 <p align="center">
-  <img src="https://media.geeksforgeeks.org/wp-content/uploads/20201210102727/Screenshot708.jpg" width="500" height="700">
+  <img src="https://media.geeksforgeeks.org/wp-content/uploads/20201210102727/Screenshot708.jpg">
 </p>
 
 
@@ -117,17 +117,17 @@ x_dummy = dummy_matrices(x)
 After that the training set (`x_dummy`, `y`) was ready to insert into `compute_model()` as parameters to calculate the weights of the model. 
 
 <p align="center">
-  <img src="./Images/x.png" width="600" height="500">
+  <img src="./Images/x.png">
 </p>
 
 <p align="center">
-  <img src="./Images/x_dummy.png" width="700" height="500">
+  <img src="./Images/x_dummy.png">
 </p>
 
 Once (`x_dummy`, `y`) are given to `compute_model()`, it returns trained weights `w`, `b` and the coefficient of determination `r_sq`. As seen below, `r_sq` is more than 0.8 what represents a good linear fit.
 
 <p align="center">
-  <img src="./Images/compute_model.png" width="700" height="300">
+  <img src="./Images/compute_model.png">
 </p>
 
 Given the trained weights, we can now use the model for new examples. Let us consider a new student Lorenzo who needs to be registered in our database and whose final grade needs to be estimated. In order to type into Lorenzo's features, I used the function `new_student()` which determines a new student's features analogous to features in the input `x`:
