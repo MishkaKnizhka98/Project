@@ -82,7 +82,19 @@ Once the input dataset is numeric, it is possible to train a linear regression m
 
 ## Structure of the project
 
-This project includes three Python code files: **main.py**, **my_functions.py** and **test_my_functions.py**. In main.py I train the linear regression model, to plot the dependence of target feature on numeric features and to predict the final grade for a new student. my_functions.py contains all functions that are used in main.py. test_my_functions.py is used to test the functions. Below there is a brief description of each .py file.
+This project includes three Python code files: **main.py**, **my_functions.py** and **test_my_functions.py**. In main.py I trained the linear regression model, to plot the dependence of target feature on numeric features and to predict the final grade for a new student. my_functions.py contains all functions that are used in main.py. test_my_functions.py is used to test the functions. Below there is a brief description of each .py file.
+
+### my_functions.py
+This file includes all functions that are not present in external modules and that are used in main.py
+
+* load_data()
+*
+
+
+
+
+
+
 
 ### main.py
 First, I imported my_functions module to get access to all necessary functions. In order to turn off SettingWithCopyWarning alert, I set the option `mode.chained_assignment` to `None`. In order to print the trained parameters w as `numpy.ndarray` to 3 decimal places, I used the `np.set_printoptions()` method.
@@ -150,3 +162,4 @@ plot(x, y, w, b)
 </p>
 
 As seen from the graphs, the model relatively well finds the relation between students' features and their final grade.
+
