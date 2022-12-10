@@ -1,13 +1,14 @@
 # Building a Linear Regression model to predict final grades of students
 
 **Here I put some abstract**
-The goal of this project was to apply machine learning to predict the final 
-grade of students. For this purpose I created an algorithm that builds a linear regression 
-model based on a dataset of students from two high schools in Portugal. Using this model, it is 
-possible to predict a new student's final grade for a certain subject. 
+In this project I applied Machine Learning to create an algorithm that builds a linear regression 
+model based on a dataset of students. To train the model the LinearRegression class was used. The main strategy was to create a module with all necessary functions that were used in the algorithm, and to perform testing for each functions. As a result, the algorithm is able to predict a new student's final grade for a certain subject.
 
 
-(We won't... leave... without... the data! (Interstellar))
+> "We are not... leaving... without... the data!"
+>
+> *- doctor Brand, Interstellar*
+
 ## Introduction
 
 ### Linear Regression Tutorial
@@ -25,7 +26,7 @@ The whole set used to *train* a model is called the **training set** and the pre
 Linear regression uses linear dependence of a target on input features. That is to say, when there 
 are m input features $x_1, x_2, x_3, \ldots , x_m$ and a target $y$, the linear regression model is represented by the following function:
 
-$$ y = w_1 \cdot x_1 + w_2 \cdot x_2 + w_3 \cdot x_3 + \ldots + w_m*x_m + b $$
+$$ y = w_1 \cdot x_1 + w_2 \cdot x_2 + w_3 \cdot x_3 + \ldots + w_m \cdot x_m + b $$
 
 where ${w_1, w_2, w_3, \ldots , w_m}$ and $b$ are **parameters** or **weights** of the model. Therefore, the goal of linear regression analysis is to find such parameters that would capture the dependence between y and $x_1, x_2, x_3, \ldots , x_m$ as accurately as possible. 
 Using the computed (trained) parameters, it is possible to create the linear model and to predict y on new values of $x_i, i = 1 \ldots m$.
@@ -35,7 +36,7 @@ In order to estimate the accuracy of your model, the coefficient of determinatio
 
 ### Problem Statement
 
-The goal of this project is to create a linear regression model to predict the final grade of a 
+The goal of this project was to create a linear regression model to predict the final grade of a 
 student. For this purpose I used a database of students from two high schools in Portugal. Using 
 this model, it is possible to predict a new student's final grade for a certain subject. 
 
@@ -69,7 +70,7 @@ Dummy matrices are a set of columns that replace a single categorical feature. E
 represents one of the feature values and has indicators 1, if a training example has 
 this feature value, or 0, if the example does not have this feature value. A simple schematic 
 illustration of dummy matrices is represented below. In order to split categorical features into 
-dummy matrices, `get_dummies()`method is used.
+dummy matrices, `get_dummies()` method is used.
 
 <p align="center">
   <img src="https://media.geeksforgeeks.org/wp-content/uploads/20201210102727/Screenshot708.jpg" width="300" height="300">
@@ -82,7 +83,20 @@ Once the input dataset is numeric, it is possible to train a linear regression m
 
 ## Structure of the project
 
-This project includes three Python code files: **main.py**, **my_functions.py** and **test_my_functions.py**. In main.py I train the linear regression model, to plot the dependence of target feature on numeric features and to predict the final grade for a new student. my_functions.py contains all functions that are used in main.py. test_my_functions.py is used to test the functions. Below there is a brief description of each .py file.
+This project includes three Python code files: **main.py**, **my_functions.py** and **test_my_functions.py**. In main.py I trained the linear regression model, to plot the dependence of target feature on numeric features and to predict the final grade for a new student. my_functions.py contains all functions that are used in main.py. test_my_functions.py is used to test the functions. Below there is a brief description of each .py file.
+
+### my_functions.py
+This file includes all functions and their documentation that are not present in external modules and that are used in main.py.
+
+* load_data() - loads a .csv file and splits it into input x and output y
+* dummy_matrices() - splits categorical features of x into dummy matrices
+* compute_model() - fits the model with LinearRegression class and computes weights w,b and the coefficient of determination r_sq 
+* new_student() - creates features of a new student
+* dummy_matrix_of_new_student()  - splits the new student's categorical features into a dummy matrix
+* predict() - using computed w and b, estimates the final grade for the enw student
+* plot() - plots dependences of the final grade on numeric features of the input
+
+
 
 ### main.py
 First, I imported my_functions module to get access to all necessary functions. In order to turn off SettingWithCopyWarning alert, I set the option `mode.chained_assignment` to `None`. In order to print the trained parameters w as `numpy.ndarray` to 3 decimal places, I used the `np.set_printoptions()` method.
@@ -123,8 +137,72 @@ Given the trained weights, we can now use the model for new examples. Let us con
 lorenzo = new_student(x)
 ```
 
+<p align="center">
+  <img src="./Images/lorenzo.png" width="300" height="300">
+</p>
+
 After defining Lorenzo's features, I converted his categorical features into dummy matrices using `dummy_matrix_of_new_student()`:
 
 ```
 lorenzo_dummy = dummy_matrix_of_new_student(lorenzo,x)
 ```
+
+In order to estimate Lorenzo's final grade, I applied `preditct()` and assigned the returned value to `y_pred`:
+
+<p align="center">
+  <img src="./Images/y_pred.png" width="300" height="300">
+</p>
+
+Lastly, in order to visually verify the accuracy of the trained model, `plot()` was used. In case of the dataset "student-mat.csv" the figures are the following:
+
+```
+plot(x, y, w, b)
+```
+
+<p align="center">
+  <img src="./Images/Figure.png" width="300" height="300">
+</p>
+
+As seen from the graphs, the model relatively well finds the relation between students' features and their final grades.
+
+
+### test_my_functions.py
+This module is used to test the functions from my_functions.py. I chose **pytest** as a testing library. There are at least two unit tests for each function (except for *plot()*) that reflect a typical use case and a limit use case. Below there is a list of all testing functions from test_my_functions.py. Each testing function has a brief documentation inside the module.
+
+For load_data():
+* test_data_load_correctly()
+* test_data_load_limit_case()
+
+For dummy_matrices():
+* test_dummy_matrices_performed_correctly()
+* test_data_with_dummy_matrices_has_no_categorical_features()
+* test_dummy_matrices_do_not_change_data_with_numeric_values()
+
+For compute_model():
+* test_compute_model() 
+* test_compute_model_with_single_point()
+
+For new_student():
+* test_new_student()
+* test_two_new_students()
+
+For dummy_matrix_of_new_student():
+* test_dummy_matrix_of_new_student()
+* test_dummy_matrix_for_new_student_has_no_categorical_features()
+
+For predict():
+* test_predict()
+* test_that_predicted_output_higher_than_twenty_notified()
+
+For plot():
+* test_plot()
+
+
+**NOTE** The tests `test_new_student()`, `test_two_new_students()`, `test_dummy_matrix_of_new_student()` and `test_dummy_matrix_for_new_student_has_no_categorical_features()` contain the *new_student()* function which contains an interactive function *input()*. Therefore, in order to pass these tests, they should be called separately with the `-s` flag. For example,
+
+```
+pytest test_my_functions.py::test_new_student -s
+```
+
+## Conclusion
+This project aims to represent a beginner level to work in the Machine Learning field. I hope that this code will help you understand better the linear regression analysis and that you will enjoy the journey.

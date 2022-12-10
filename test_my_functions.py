@@ -157,13 +157,13 @@ def test_two_new_students():
 def test_dummy_matrix_of_new_student():
     """
     This function tests that dummy_matrix_of_new_student() correctly decomposes a new student's features
-    into dummy matrices and indicates binary features with 0 and 1.
+    into a dummy matrix and indicates binary features with 0 and 1.
 
     GIVEN: a training set x is formed from the dataset test_data.csv and a new student Alex is created
     with new_student(). In order to make the test pass, Alex's school should be indicated as "Moscow".
     The variable alex is assigned to a 1-row pandas dataframe with Alex's features
     WHEN: dummy_matrix_for_new_student() is given alex and x as parameters
-    THEN: categorical features are decomposed into dummy matrices, binary features are replaced with
+    THEN: categorical features are decomposed into a dummy matrix, binary features are replaced with
     indicators 0 and 1. If Alex's school is indicated as "Moscow", the feature value s_Moscow is equal to 1
     """
 

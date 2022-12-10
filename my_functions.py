@@ -202,10 +202,10 @@ def new_student(x):
 
 def dummy_matrix_of_new_student(new_student, x):
     """
-    Turns categorical features of a new student into dummy matrices. The function creates a new training set
-    x_new by appending the created new_student to the training set x. x_new is then exposed to dummy_matrices()
+    Turns categorical features of a new student into a dummy matrix. The function creates a new training set
+    x_new by appending the new_student to the training set x. x_new is then exposed to dummy_matrices()
     which turns categorical features into dummy matrices. The function returns the last element of x_new, which is
-    the new student's row with categorical features replaced by dummy matrices.
+    the new student's row with categorical features replaced by a dummy matrix.
     
     Parameters:
         ----------
@@ -217,7 +217,7 @@ def dummy_matrix_of_new_student(new_student, x):
     Returns:
      ----------
         new_student_dummy : pandas dataframe
-                Shape (1,k) The new student array with dummy matrices
+                Shape (1,k) The new student array with a dummy matrix
     """
     
     x_new = x.append(new_student)

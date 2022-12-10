@@ -19,7 +19,7 @@ print("Predicted b: ", "%.3f" % b, "\n")
 print("Coefficient of determination: ", "%.3f" % r_sq, "\n")
 
 # Here we want to predict the final grade "G3" of a new student Lorenzo
-# In order to turn Lorenzo's categorical features into dummy matrices, dummy_matrix_of_new_student() is used
+# In order to turn Lorenzo's categorical features into a dummy matrix, dummy_matrix_of_new_student() is used
 lorenzo = new_student(x)
 
 lorenzo_dummy = dummy_matrix_of_new_student(lorenzo,x)
