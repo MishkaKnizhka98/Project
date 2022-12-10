@@ -25,7 +25,7 @@ The whole set used to *train* a model is called the **training set** and the pre
 Linear regression uses linear dependence of a target on input features. That is to say, when there 
 are m input features $x_1, x_2, x_3, \ldots , x_m$ and a target $y$, the linear regression model is represented by the following function:
 
-$$y = w_1 \cdot x_1 + w_2 \cdot x_2 + w_3 \cdot x_3 + \ldots + w_m*x_m + b$$
+$$ y = w_1 \cdot x_1 + w_2 \cdot x_2 + w_3 \cdot x_3 + \ldots + w_m*x_m + b $$
 
 where ${w_1, w_2, w_3, \ldots , w_m}$ and $b$ are **parameters** or **weights** of the model. Therefore, the goal of linear regression analysis is to find such parameters that would capture the dependence between y and $x_1, x_2, x_3, \ldots , x_m$ as accurately as possible. 
 Using the computed (trained) parameters, it is possible to create the linear model and to predict y on new values of $x_i, i = 1 \ldots m$.
@@ -69,7 +69,7 @@ Dummy matrices are a set of columns that replace a single categorical feature. E
 represents one of the feature values and has indicators 1, if a training example has 
 this feature value, or 0, if the example does not have this feature value. A simple schematic 
 illustration of dummy matrices is represented below. In order to split categorical features into 
-dummy matrices, *get_dummies()* method is used.
+dummy matrices, `get_dummies()`method is used.
 
 <p align="center">
   <img src="https://media.geeksforgeeks.org/wp-content/uploads/20201210102727/Screenshot708.jpg" width="300" height="300">
@@ -91,6 +91,40 @@ First, I imported my_functions module to get access to all necessary functions. 
 from my_functions import *
 
 pd.set_option('mode.chained_assignment', None)  # To turn off SettingWithCopyWarning
-np.set_printoptions(formatter={'float': lambda x: "{0:0.3f}".format(x)})  # To print the predicted w to 3 decimals places```
+np.set_printoptions(formatter={'float': lambda x: "{0:0.3f}".format(x)})  # To print the predicted w to 3 decimals places
+```
 
-To perform the linear regression, I used the "student-mat.csv" file. Using load_data(), I splitted the dataset into the input features array `x` and target feature `y`. Then 
+To perform the linear regression, I used the "student-mat.csv" file. Using load_data(), I splitted the dataset into the input features array `x` and target feature `y`. Then I used `dummy_matrices()`to turn categorical features of `x` into dummy matrices. As a result, the function returned `x_dummy` with replaaced columns.
+
+```
+x, y = load_data("data/student-mat.csv")
+x_dummy = dummy_matrices(x)
+```
+
+After that the training set (`x_dummy`, `y`) was ready to insert into `compute_model()` as parameters to calculate the weights of the model. 
+
+<p align="center">
+  <img src="./Images/x.png" width="300" height="300">
+</p>
+
+<p align="center">
+  <img src="./Images/x_dummy.png" width="300" height="300">
+</p>
+
+Once (`x_dummy`, `y`) are given to `compute_model()`, it returns trained weights `w`, `b` and the coefficient of determination `r_sq`. As seen below, `r_sq` is more than 0.8 what represents a good linear fit.
+
+<p align="center">
+  <img src="./Images/compute_model.png" width="300" height="300">
+</p>
+
+Given the trained weights, we can now use the model for new examples. Let us consider a new student Lorenzo who needs to be registered in our database and whose final grade needs to be estimated. In order to type into Lorenzo's features, I used the function `new_student()` which determines a new student's features analogous to features in the input `x`:
+
+```
+lorenzo = new_student(x)
+```
+
+After defining Lorenzo's features, I converted his categorical features into dummy matrices using `dummy_matrix_of_new_student()`:
+
+```
+lorenzo_dummy = dummy_matrix_of_new_student(lorenzo,x)
+```

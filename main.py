@@ -14,8 +14,9 @@ x_dummy = dummy_matrices(x)
 w, b, r_sq = compute_model(x_dummy, y)
 
 # Printing predicted w, b and r_sq to 3 decimal places
-print("Predicted w: ", w, "\n", "Predicted b: ", "%.3f" % b, "\n",
-      "Coefficient of determination: ", "%.3f" % r_sq)
+print("Predicted w: ", w, "\n")
+print("Predicted b: ", "%.3f" % b, "\n")
+print("Coefficient of determination: ", "%.3f" % r_sq)
 
 # Here we want to predict the final grade "G3" of a new student Lorenzo
 # In order to turn Lorenzo's categorical features into dummy matrices, dummy_matrix_of_new_student() is used
