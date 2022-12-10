@@ -123,8 +123,30 @@ Given the trained weights, we can now use the model for new examples. Let us con
 lorenzo = new_student(x)
 ```
 
+<p align="center">
+  <img src="./Images/lorenzo.png" width="300" height="300">
+</p>
+
 After defining Lorenzo's features, I converted his categorical features into dummy matrices using `dummy_matrix_of_new_student()`:
 
 ```
 lorenzo_dummy = dummy_matrix_of_new_student(lorenzo,x)
 ```
+
+In order to estimate Lorenzo's final grade, I applied `preditct()` and assigned the returned value to `y_pred`:
+
+<p align="center">
+  <img src="./Images/y_pred.png" width="300" height="300">
+</p>
+
+Lastly, in order to visually verify the accuracy of the trained model, `plot()` was used. In case of the dataset "student-mat.csv" the figures are the following:
+
+```
+plot(x, y, w, b)
+```
+
+<p align="center">
+  <img src="./Images/Figure.png" width="300" height="300">
+</p>
+
+As seen from the graphs, the model relatively well finds the relation between students' features and their final grade.
