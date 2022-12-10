@@ -1,6 +1,5 @@
 # Building a Linear Regression model to predict final grades of students
 
-**Here I put some abstract**
 In this project I applied Machine Learning to create an algorithm that builds a linear regression 
 model based on a dataset of students. To train the model the LinearRegression class was used. The main strategy was to create a module with all necessary functions that were used in the algorithm, and to perform testing for each functions. As a result, the algorithm is able to predict a new student's final grade for a certain subject.
 
