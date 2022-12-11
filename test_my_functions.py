@@ -20,7 +20,7 @@ def test_data_load_correctly():
     y consists of the column ["G3"].
 
     GIVEN: a file test_data.csv is being opened with read_csv() method
-    WHEN: the data is splitted into arrays x and y
+    WHEN: the data is split into arrays x and y
     THEN: the result consists of the arrays x and y
     """
 
@@ -41,13 +41,13 @@ def test_data_load_limit_case():
 
 def test_dummy_matrices_performed_correctly():
     """
-    This function tests that training data with categorical features
+    This function tests that input with categorical features
     can be correctly decomposed into dummy matrices consisting of indicator variables
-    that take on the values 0 or 1. For example, if there are three schools (located in Moscow, S.-Petersburg and Zelenograd),
-    the feature "school" will be split into three columns.
+    that take on the values 0 or 1. For example, if there are three schools
+    (located in Moscow, S.-Petersburg and Zelenograd), the feature "school" will be split into three columns.
     For binary categorical features one value is indicated by 1, whereas 0 is assigned to the second value.
 
-    GIVEN: the data is split into arrays x and y, x is the training set with categorical features:
+    GIVEN: the data is split into arrays x and y, x is the input with categorical features:
            ["school" -> 3 values, "Mjob" -> 5 values, "Fjob" -> 4 values, "sex", "higher", "activities" -> binary features]
     WHEN: each column with categorical features is decomposed into columns with indicator value,
           each column with binary categorical features is replaced by a column with indicators
@@ -63,7 +63,7 @@ def test_dummy_matrices_performed_correctly():
 def test_data_with_dummy_matrices_has_no_categorical_features(dummy_data):
     """
     This function tests that after applying dummy_matrices() to data it will not contain
-    categorical features. For this purpose the function is given a parameter dummy_data from pytest fixture
+    categorical features. For this purpose the function is given a parameter dummy_data from pytest-fixture
     containing dataset with dummy matrices. In this case the number of columns with categorical features is 0.
     """
 
@@ -81,7 +81,7 @@ def test_dummy_matrices_do_not_change_data_with_numeric_values():
 
 def test_compute_model():
     """
-    This function tests that compute_model() builds a linear regression model correctly.
+    This function tests that compute_model() fits a linear regression model correctly.
     For this case a simple dataset with zero variation is used.
     Slope w, intercept b and coefficient of determination r_sq are calculated.
 
@@ -104,7 +104,7 @@ def test_compute_model():
 def test_compute_model_with_single_point():
     """
     This function tests that a linear regression model is not well-defined for single samples
-    and will return a NaN value for r_sq,if the number of samples is less than two.
+    and will return a NaN value for r_sq, if the number of samples is less than two.
     """
 
     x = [10]
@@ -122,7 +122,7 @@ def test_new_student():
     """
     This function tests that new_student() creates a 1-row table with a new student's features.
 
-    GIVEN: a training set x is formed from the dataset test_data.csv
+    GIVEN: input x is formed from the dataset test_data.csv
     WHEN: a user inputs features to a new student Alex. In order to make the test pass,
     Alex's school should be indicated as "Moscow"
     THEN: a variable alex is assigned to a 1-row pandas dataframe. In order to compare elements of a DataFrame,
@@ -139,7 +139,7 @@ def test_two_new_students():
     This function tests that two new students created with new_student() and given different features,
     will be different from each other.
 
-    GIVEN: a training set x is formed from the dataset test_data.csv
+    GIVEN: input x is formed from the dataset test_data.csv
     WHEN: a user inputs features to new students Alex and Lorenzo. In order to make the test pass,
     at least one Alex's feature should differ from identical Lorenzo's feature.
     THEN: variables alex and lorenzo are assigned to 1-row pandas dataframes and then compared
@@ -157,13 +157,13 @@ def test_two_new_students():
 def test_dummy_matrix_of_new_student():
     """
     This function tests that dummy_matrix_of_new_student() correctly decomposes a new student's features
-    into a dummy matrix and indicates binary features with 0 and 1.
+    into dummy matrices and indicates binary features with 0 and 1.
 
-    GIVEN: a training set x is formed from the dataset test_data.csv and a new student Alex is created
+    GIVEN: input x is formed from the dataset test_data.csv and a new student Alex is created
     with new_student(). In order to make the test pass, Alex's school should be indicated as "Moscow".
     The variable alex is assigned to a 1-row pandas dataframe with Alex's features
     WHEN: dummy_matrix_for_new_student() is given alex and x as parameters
-    THEN: categorical features are decomposed into a dummy matrix, binary features are replaced with
+    THEN: categorical features are decomposed into dummy matrices, binary features are replaced with
     indicators 0 and 1. If Alex's school is indicated as "Moscow", the feature value s_Moscow is equal to 1
     """
 

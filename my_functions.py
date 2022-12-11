@@ -1,10 +1,10 @@
-# This module contains all functions that are employed in the linear regression simulation in main.py
+# This module contains all functions that are employed in the linear regression analysis in main.py
 
 import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
-from sklearn.preprocessing import LabelEncoder
-from sklearn.linear_model import LinearRegression
+from sklearn.preprocessing import LabelEncoder #To indicate binary categorical features as 0 and 1
+from sklearn.linear_model import LinearRegression #To fit a linear model
 
 
 def load_data(file_name):
@@ -49,18 +49,19 @@ def load_data(file_name):
 def dummy_matrices(data):
     """
     Turns categorical features of a training dataset into dummy matrices. In particular, each column
-    which has several values to define a categorical feature, is split into a set of columns. Each column
+    which has several values of a categorical feature, is split into a set of columns. Each column in the set
     is assigned to a certain value of the feature and contains indicators 0 and 1. When the student's feature
-    is equal the value from a specific column, its indicator will be 1, otherwise, it will be 0.
-    For example, the feature "Mjob" has five values
-    ["at_home", "health", "other", "services", "teacher"]. Then after splitting the feature into dummy matrices
-    it will be replaced by five columns with headings written as "m_ + value name"
+    is equal to the value of a specific column, its indicator will be 1, otherwise, it will be 0.
+    For example, the feature "Mjob" has five values ["at_home", "health", "other", "services", "teacher"].
+    Then after splitting the feature into dummy matrices it will be replaced by five columns with headings written as
+    "m_ + value name" (the value name is altered in order to avoid confusion with "Fjob" values).
     If a student has the "Mjob" feature as "health", the indicator in the "m_health" will be 1, whereas
     the columns "m_at_home", "m_other", "m_services", "m_teacher" will have 0 in the student's row.
 
-    If a feature has binary value, its values will be indicated as 0 and 1. Such process is called a label encoding.
+    If a feature has binary categorical value, its values will be indicated as 0 and 1. Such process is called a label encoding.
     For example, the feature "activities" has two values: "yes" and "no". Therefore, after applying label encoding
-    to this feature, "yes" will be indicated with 1 and "no" will be indicated with 0.
+    to this feature, "yes" will be indicated with 1 and "no" will be indicated with 0. In order to perform label encoding,
+    the LabelEncoder class is used.
 
     
     Parameters:
@@ -106,16 +107,16 @@ def compute_model(x, y):
     Parameters:
         ----------
         x : pandas dataframe
-                Shape (m,k) Input for the model
+                Shape (m,k) Input to the model
         y : pandas dataframe
-                Shape (m,) Output for the model
+                Shape (m,) Output of the model
 
     Returns:
         ----------
         w : numpy ndarray
-                Shape (k,) Fitted parameters of the model (slope)
+                Shape (k,) Parameters of the fitted model (slope)
         b : scalar
-                Fitted parameter of the model (intercept)
+                Parameter of the fitted model (intercept)
         r_sq : scalar
                 Coefficient of determination R^2
     """
@@ -135,7 +136,7 @@ def compute_model(x, y):
 
 def new_student(x):
     """
-    Creates a new student. The function acquires the features that belong to students in the training set x
+    Creates a new student. The function gets the features that belong to students in the input x
     and assigns them to a new student. For each feature a user types into a number within a specific range
     (15-25 for "age" and 0-20 for "G1" and "G2") or an allowable value (for a categorical feature).
     The function returns a 1-row DataFrame with the features of the new student.
@@ -143,7 +144,7 @@ def new_student(x):
     Parameters:
         ----------
         x : pandas dataframe
-                Shape (m,n) Training set to the model. Defines the features for a new student
+                Shape (m,n) Input to the model. Defines the features for a new student
         
     Returns:
         ----------
@@ -156,12 +157,14 @@ def new_student(x):
     
     for column in x.columns:
         inp = ""
+        # Typing categorical features
         if x[column].dtype == "object":
             inp = input("Please write the " + column + " of a student (" + str(x[column].unique()) + "): ")
             while inp not in x[column].unique():
                 print("Invalid feature! Please try again!")
                 inp = input("Please write the " + column + " of a student (" + str(x[column].unique()) + "): ")
-                
+
+        # Typing "age"
         elif column == "age":
             while True:
                 try:
@@ -176,6 +179,7 @@ def new_student(x):
                 if inp >= 15 or inp <= 25:
                     break
 
+        #Typing "G1" and "G2"
         elif column == "G1" or column == "G2":
             while True:
                 try:
@@ -202,22 +206,22 @@ def new_student(x):
 
 def dummy_matrix_of_new_student(new_student, x):
     """
-    Turns categorical features of a new student into a dummy matrix. The function creates a new training set
-    x_new by appending the new_student to the training set x. x_new is then exposed to dummy_matrices()
+    Turns categorical features of a new student into dummy variables. The function creates a new array
+    x_new by appending the new_student to the input x. x_new is then exposed to dummy_matrices()
     which turns categorical features into dummy matrices. The function returns the last element of x_new, which is
-    the new student's row with categorical features replaced by a dummy matrix.
+    the new student's row with categorical features replaced by dummy matrices.
     
     Parameters:
         ----------
         new_student : pandas dataframe
                 Shape (1,n) A new student array with categorical features
         x : pandas dataframe
-                Shape (m,n) Training set as DataFrame
+                Shape (m,n) Input to the model
         
     Returns:
      ----------
         new_student_dummy : pandas dataframe
-                Shape (1,k) The new student array with a dummy matrix
+                Shape (1,k) The new student array with dummy matrices
     """
     
     x_new = x.append(new_student)
@@ -232,9 +236,9 @@ def dummy_matrix_of_new_student(new_student, x):
 
 def predict(example, w, b):
     """
-    Predicts the target y (final grade "G3") of a new student (indicated as "example") using the trained model
-    with the parameters w and b. If the new student's final is higher than 20, the function will print ou the
-    notification.
+    Predicts the target y (final grade "G3") of a new student (indicated as "example") using a linear model
+    with trained parameters w and b. If the new student's final grade is higher than 20, the function will print out the
+    notification. The np.dot() method is invoked to calculate the dot product of arrays x and w.
     
     Parameters:
         ----------
@@ -267,14 +271,14 @@ def plot(x, y, w, b):
     Creates plots with dependence of the output y and its predicted values on numerical values of input x.
     In case of a dataset with features ["school", "sex", "age", "Mjob", "Fjob", "activities", "higher", "G1", "G2"]
     and target "G3", the function will scatter given and predicted values of "G3" against "age", "G1" and "G2".
-    In order to predict "G3" for each student, parameters w and b are inserted into a linear function,
-    where np.dot() method is invoked to obtain teh dot product of arrays x and w.
+    In order to predict "G3" for each student, trained parameters w and b are inserted into a linear function,
+    where np.dot() method is invoked to obtain the dot product of arrays x and w.
     Parameters:
         ----------
         x : pandas dataframe
-                Shape (m,n) Training set to the model
+                Shape (m,n) Input to the model
         y : pandas dataframe
-                Shape (m,) Output for the model
+                Shape (m,) Output of the model
         w : numpy.ndarray
                 Shape (n,) Parameters of the trained model (slope)
         b : scalar
