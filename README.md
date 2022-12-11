@@ -81,9 +81,9 @@ Once the input dataset is numeric, it is possible to train a linear regression m
 
 ## Structure of the project
 
-In the project there are three folder. **/data** contains datasets that can be used in the linear regression analysis: "student-mat.csv", "student-por.csv" and "student.txt", where additional information about the datasets is shown. In case there are new datasets, a user should add them to the */data* folder. **test_data** includes data used for testing functions. **Images** contains all images used in the *README.md* file.
+In the project there are three folder. `/data` contains datasets that can be used in the linear regression analysis: "student-mat.csv", "student-por.csv" and "student.txt", where additional information about the datasets is shown. In case there are new datasets, a user should add them to the */data* folder. `/test_data` includes data used for testing functions. `/Images` contains all images used in the *README.md* file.
 
-This project includes three Python code files: **main.py**, **my_functions.py** and **test_my_functions.py**. In *main.py* I trained the linear regression model, plotted the dependence of target feature on numeric features and to predicted the final grade for a new student. *my_functions.py* contains all functions that were employed in *main.py*. *test_my_functions.py* is used to test the functions. Below there is a brief description of each .py file.
+This project includes three Python code files: `main.py`, `my_functions.py` and `test_my_functions.py`. In *main.py* I trained the linear regression model, plotted the dependence of target feature on numeric features and to predicted the final grade for a new student. *my_functions.py* contains all functions that were employed in *main.py*. *test_my_functions.py* is used to test the functions. Below there is a brief description of each .py file.
 
 ### my_functions.py
 This file includes all functions and their documentation that are not present in external modules and that are used in main.py.
@@ -99,7 +99,7 @@ This file includes all functions and their documentation that are not present in
 It is worth noting that in `new_student()` I raised the age limit to 25 years in order to make the choice more diverse. 
 
 ### main.py
-First, I imported *my_functions.py* module to get access to all necessary functions. In order to turn off **SettingWithCopyWarning alert**, I set the option `mode.chained_assignment` to `None`. In order to print the trained parameters w as `numpy.ndarray` to 3 decimal places, I used the `np.set_printoptions()` method.
+First, I imported *my_functions.py* module to get access to all necessary functions. In order to turn off `SettingWithCopyWarning alert`, I set the option `mode.chained_assignment` to `None`. In order to print the trained parameters w as `numpy.ndarray` to 3 decimal places, I used the `np.set_printoptions()` method.
 
 ```
 from my_functions import *
