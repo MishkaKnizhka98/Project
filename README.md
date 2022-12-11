@@ -81,7 +81,7 @@ Once the input dataset is numeric, it is possible to train a linear regression m
 
 ## Structure of the project
 
-This project includes three Python code files: **main.py**, **my_functions.py** and **test_my_functions.py**. In main.py I trained the linear regression model, plotted the dependence of target feature on numeric features and to predicted the final grade for a new student. my_functions.py contains all functions that were employed in main.py. test_my_functions.py is used to test the functions. Below there is a brief description of each .py file.
+This project includes three Python code files: **main.py**, **my_functions.py** and **test_my_functions.py**. In *main.py* I trained the linear regression model, plotted the dependence of target feature on numeric features and to predicted the final grade for a new student. *my_functions.py* contains all functions that were employed in *main.py*. *test_my_functions.py* is used to test the functions. Below there is a brief description of each .py file.
 
 ### my_functions.py
 This file includes all functions and their documentation that are not present in external modules and that are used in main.py.
