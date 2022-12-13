@@ -2,6 +2,7 @@
 
 import pandas as pd
 import numpy as np
+import warnings
 import matplotlib.pyplot as plt
 from sklearn.preprocessing import LabelEncoder #To indicate binary categorical features as 0 and 1
 from sklearn.linear_model import LinearRegression #To fit a linear model
@@ -168,10 +169,10 @@ def new_student(x):
         elif column == "age":
             while True:
                 try:
-                    inp = int(input("Please write the " + column + " of a student (from " + str(15) + " to " + str(25) + "): "))
+                    inp = int(input("Please write the " + column + " of a student (from 15 to 25): "))
                     while inp < 15 or inp > 25:
                         print("Invalid feature! Please try again!")
-                        inp = int(input("Please write the " + column + " of a student (from " + str(15) + " to " + str(25) + "): "))
+                        inp = int(input("Please write the " + column + " of a student (from 15 to 25): "))
                 except ValueError: 
                     print("Value Error for age! Please try again!")
                     continue
@@ -183,10 +184,10 @@ def new_student(x):
         elif column == "G1" or column == "G2":
             while True:
                 try:
-                    inp = int(input("Please write the " + column + " of a student (from " + str(0) + " to " + str(20) + "): "))
+                    inp = int(input("Please write the " + column + " of a student (from 0 to 20): "))
                     while inp < 0 or inp > 20:
                         print("Invalid grade! Please try again!")
-                        inp = int(input("Please write the " + column + " of a student (from " + str(0) + " to " + str(20) + "): "))
+                        inp = int(input("Please write the " + column + " of a student (from 0 to 20): "))
                 except ValueError:
                     print("Value Error for grade! Please try again!")
                     continue
@@ -258,7 +259,8 @@ def predict(example, w, b):
     y_pred = np.dot(w, example) + b
 
     if y_pred > 20:
-        print("The new student's final grade G3 is higher than 20!")
+        warnings.warn("The new student's final grade G3 is higher than 20!")
+        y_pred = 20
 
     return y_pred
 
