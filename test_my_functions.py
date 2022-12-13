@@ -1,15 +1,16 @@
 # This module contains tests for each function in my_functions.py
-
+import pandas as pd
+import os
 import pytest
-from my_functions import *
+import my_functions as mf
 import math
 from unittest import mock
 
 
 @pytest.fixture
 def dummy_data():
-    x, y = load_data("test_data/test_data.csv")
-    x_dummy = dummy_matrices(x)
+    x, y = mf.load_data("test_data/test_data.csv")
+    x_dummy = mf.dummy_matrices(x)
     return x_dummy
 
 
@@ -24,9 +25,29 @@ def test_data_load_correctly():
     THEN: the result consists of the arrays x and y
     """
 
-    x, y = load_data("test_data/test_data.csv")
-    assert y[3] == 15
-    assert x["Fjob"].iloc[3] == "teacher"
+    test_data = {"school": ["Hogwarts", "Nevermore"],
+                 "sex": ["M", "F"],
+                 "age": [15, 16],
+                 "Mjob": ["teacher", "services"],
+                 "Fjob": ["health", "services"],
+                 "higher": ["yes", "yes"],
+                 "activities": ["yes", "yes"],
+                 "G1": [17, 18],
+                 "G2": [14, 15],
+                 "G3": [19, 19]}
+
+    test_data = pd.DataFrame(test_data)
+    test_data_csv = test_data.to_csv("test_data.csv")
+
+    x, y = mf.load_data("test_data.csv")
+    loaded_data = pd.concat([x, y], axis=1)
+
+    assert loaded_data.equals(test_data)
+
+    file_name = "test_data.csv"
+    if os.path.isfile(file_name):
+        os.remove(file_name)
+
 
 
 def test_data_load_limit_case():
