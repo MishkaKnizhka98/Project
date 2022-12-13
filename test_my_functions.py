@@ -50,14 +50,32 @@ def test_data_load_correctly():
 
 
 
-def test_data_load_limit_case():
+def test_data_misses_column():
     """
     This function tests the limit case of using load_data() when the parameter is None.
     In this case TypeError is raised.
     """
+    test_data = {"school": ["Hogwarts", "Nevermore"],
+                 "sex": ["M", "F"],
+                 "age": [15, 16],
+                 "Mjob": ["teacher", "services"],
+                 "Fjob": ["health", "services"],
+                 "higher": ["yes", "yes"],
+                 "activities": ["yes", "yes"],
+                 "G1": [17, 18],
+                 #"G2": [1,2],
+                 "G3": [19, 19]}
 
-    with pytest.raises(TypeError):
-        x, y = load_data()
+    test_data = pd.DataFrame(test_data)
+    test_data_csv = test_data.to_csv("test_data.csv")
+
+    with pytest.raises(KeyError):
+        x, y = mf.load_data("test_data.csv")
+
+    file_name = "test_data.csv"
+    if os.path.isfile(file_name):
+        os.remove(file_name)
+
 
 
 def test_dummy_matrices_performed_correctly():
@@ -75,10 +93,37 @@ def test_dummy_matrices_performed_correctly():
     THEN: the number of columns increases from 9 to 18, training set becomes numeric
     """
 
-    x, y = load_data("test_data/test_data.csv")
-    x_dummy = dummy_matrices(x)
-    assert x_dummy.shape[1] == 18
-    assert x_dummy.loc[1, "s_Moscow"] == 1
+    x = {"school": ["Hogwarts", "Hogwarts", "Nevermore"],
+                 "sex": ["M", "F", "F"],
+                 "age": [15, 14, 16],
+                 "Mjob": ["teacher", "at_home", "services"],
+                 "Fjob": ["health", "other", "services"],
+                 "higher": ["yes", "no", "yes"],
+                 "activities": ["no", "yes", "yes"],
+                 "G1": [17, 18, 19],
+                 "G2": [14, 15, 16],
+                 }
+    x = pd.DataFrame(x)
+    x_dummy = mf.dummy_matrices(x)
+
+    x_dummy_test = {"school": [0, 0, 1],
+                         "sex": [1, 0, 0],
+                         "age": [15, 14, 16],
+                         "higher": [1, 0, 1],
+                         "activities": [0, 1, 1],
+                         "G1": [17, 18, 19],
+                         "G2": [14, 15, 16],
+                         "m_at_home": [0, 1, 0],
+                         "m_services": [0, 0, 1],
+                         "m_teacher": [1, 0, 0],
+                         "f_health": [1, 0, 0],
+                         "f_other": [0, 1, 0],
+                         "f_services": [0, 0, 1]
+                 }
+    x_dummy_test = pd.DataFrame(x_dummy_test)
+    x_dummy = x_dummy.astype("int64")
+    assert x_dummy_test.equals(x_dummy)
+
 
 
 def test_data_with_dummy_matrices_has_no_categorical_features(dummy_data):
