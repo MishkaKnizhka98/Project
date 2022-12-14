@@ -369,9 +369,9 @@ def test_predict():
     x = pd.DataFrame(x)
     y = pd.DataFrame(y)
 
-    w, b, r_sq = compute_model(x, y)
+    w, b, r_sq = mf.compute_model(x, y)
 
-    y_pred = predict(4, w, b)
+    y_pred = mf.predict(4, w, b)
 
     assert math.isclose(y_pred, 14)
 
@@ -388,17 +388,18 @@ def test_that_predicted_output_higher_than_twenty_notified():
           "The new student's final grade G3 is higher than 20!" is raised
     """
 
-    x = [1, 2, 3]
-    y = [5, 8, 11]
+    with pytest.warns(UserWarning):
+        x = [1, 2, 3]
+        y = [5, 8, 11]
 
-    x = pd.DataFrame(x)
-    y = pd.DataFrame(y)
+        x = pd.DataFrame(x)
+        y = pd.DataFrame(y)
 
-    w, b, r_sq = compute_model(x, y)
+        w, b, r_sq = mf.compute_model(x, y)
 
-    y_pred = predict(10, w, b)
+        y_pred = mf.predict(10, w, b)
 
-    assert math.isclose(y_pred, 32)
+    assert math.isclose(y_pred, 20)
 
 
 @mock.patch("my_functions.plt.show")
