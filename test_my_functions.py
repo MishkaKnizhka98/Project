@@ -325,10 +325,32 @@ def test_dummy_matrix_for_new_student_has_no_categorical_features():
     they will not contain categorical features.
     """
 
-    x, y = load_data("test_data/test_data.csv")
-    alex = new_student(x)
-    alex = dummy_matrix_of_new_student(alex, x)
-    assert alex.dtype == "int64"
+    x = {"school": ["Hogwarts", "Hogwarts", "Nevermore"],
+         "sex": ["M", "F", "F"],
+         "age": [15, 14, 16],
+         "Mjob": ["teacher", "at_home", "services"],
+         "Fjob": ["health", "other", "services"],
+         "higher": ["yes", "no", "yes"],
+         "activities": ["no", "yes", "yes"],
+         "G1": [17, 18, 19],
+         "G2": [14, 15, 16],
+         }
+    x = pd.DataFrame(x)
+
+    new_student = {
+        "school": "Nevermore",
+        "sex": "F",
+        "age": 16,
+        "Mjob": "teacher",
+        "Fjob": "health",
+        "higher": "yes",
+        "activities": "yes",
+        "G1": 17,
+        "G2": 14}
+    new_student = pd.DataFrame(new_student, index=[0])
+
+    new_student_dummy = mf.dummy_matrix_of_new_student(new_student, x)
+    assert new_student_dummy.dtype == "int64"
 
 
 def test_predict():
