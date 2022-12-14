@@ -219,9 +219,8 @@ def test_new_student(monkeypatch):
         "activities": "yes",
         "G1": 17,
         "G2": 14}
-
-
     new_student = pd.DataFrame(new_student, index=[0])
+
     inputs = iter(["Nevermore", "M", 16, "teacher", "health", "yes", "yes", 17, 14])
     monkeypatch.setattr('builtins.input', lambda _: next(inputs))
     result = mf.new_student(new_student)
@@ -229,7 +228,7 @@ def test_new_student(monkeypatch):
 
 
 
-def test_two_new_students():
+def test_two_new_students(monkeypatch):
     """
     This function tests that two new students created with new_student() and given different features,
     will be different from each other.
@@ -240,14 +239,39 @@ def test_two_new_students():
     THEN: variables alex and lorenzo are assigned to 1-row pandas dataframes and then compared
     """
 
-    x, y = load_data("test_data/test_data.csv")
+    test_data = {"school": ["Hogwarts", "Nevermore"],
+                 "sex": ["M", "F"],
+                 "age": [15, 16],
+                 "Mjob": ["teacher", "services"],
+                 "Fjob": ["health", "services"],
+                 "higher": ["yes", "yes"],
+                 "activities": ["yes", "yes"],
+                 "G1": [17, 18],
+                 "G2": [1,2],
+                 "G3": [19, 19]}
+    test_data = pd.DataFrame(test_data)
 
-    alex = new_student(x)
-    print("\n")
-    lorenzo = new_student(x)
+    inputs_1 = iter(["Nevermore", "M", 16, "teacher", "health", "yes", "yes", 17, 14])
+    monkeypatch.setattr('builtins.input', lambda _: next(inputs_1))
+    result_1 = mf.new_student(test_data)
 
-    assert lorenzo.equals(alex) == False
+    inputs_2 = iter(["Nevermore", "F", 16, "services", "health", "yes", "yes", 17, 14])
+    monkeypatch.setattr('builtins.input', lambda _: next(inputs_2))
+    result_2 = mf.new_student(test_data)
 
+    assert result_1.equals(result_2) == False
+
+    new_student_2 = {
+        "school": "Nevermore",
+        "sex": "F",
+        "age": 16,
+        "Mjob": "teacher",
+        "Fjob": "health",
+        "higher": "yes",
+        "activities": "yes",
+        "G1": 17,
+        "G2": 14}
+    new_student_2 = pd.DataFrame(new_student_2, index=[0])
 
 def test_dummy_matrix_of_new_student():
     """
