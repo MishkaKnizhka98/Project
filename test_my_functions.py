@@ -5,6 +5,7 @@ import pytest
 import my_functions as mf
 import math
 from unittest import mock
+import builtins
 
 
 @pytest.fixture
@@ -197,7 +198,7 @@ def test_compute_model_with_single_point():
     assert math.isnan(r_sq) and math.isclose(w, 0) and math.isclose(b, 10)
 
 
-def test_new_student():
+def test_new_student(monkeypatch):
     """
     This function tests that new_student() creates a 1-row table with a new student's features.
 
@@ -208,9 +209,24 @@ def test_new_student():
     the method .any() is used
     """
 
-    x, y = load_data("test_data/test_data.csv")
-    alex = new_student(x)
-    assert (alex["school"] == "Moscow").any()
+    new_student = {
+        "school": "Nevermore",
+        "sex": "M",
+        "age": 16,
+        "Mjob": "teacher",
+        "Fjob": "health",
+        "higher": "yes",
+        "activities": "yes",
+        "G1": 17,
+        "G2": 14}
+
+
+    new_student = pd.DataFrame(new_student, index=[0])
+    inputs = iter(["Nevermore", "M", 16, "teacher", "health", "yes", "yes", 17, 14])
+    monkeypatch.setattr('builtins.input', lambda _: next(inputs))
+    result = mf.new_student(new_student)
+    assert result.equals(new_student)
+
 
 
 def test_two_new_students():
