@@ -221,7 +221,7 @@ def dummy_matrix_of_new_student(new_student, x):
         
     Returns:
      ----------
-        new_student_dummy : pandas dataframe
+        new_student_dummy : pandas series
                 Shape (1,k) The new student array with dummy matrices
     """
     

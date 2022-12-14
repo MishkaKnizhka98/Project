@@ -261,17 +261,6 @@ def test_two_new_students(monkeypatch):
 
     assert result_1.equals(result_2) == False
 
-    new_student_2 = {
-        "school": "Nevermore",
-        "sex": "F",
-        "age": 16,
-        "Mjob": "teacher",
-        "Fjob": "health",
-        "higher": "yes",
-        "activities": "yes",
-        "G1": 17,
-        "G2": 14}
-    new_student_2 = pd.DataFrame(new_student_2, index=[0])
 
 def test_dummy_matrix_of_new_student():
     """
@@ -286,11 +275,48 @@ def test_dummy_matrix_of_new_student():
     indicators 0 and 1. If Alex's school is indicated as "Moscow", the feature value s_Moscow is equal to 1
     """
 
-    x, y = load_data("test_data/test_data.csv")
-    alex = new_student(x)
+    x = {"school": ["Hogwarts", "Hogwarts", "Nevermore"],
+         "sex": ["M", "F", "F"],
+         "age": [15, 14, 16],
+         "Mjob": ["teacher", "at_home", "services"],
+         "Fjob": ["health", "other", "services"],
+         "higher": ["yes", "no", "yes"],
+         "activities": ["no", "yes", "yes"],
+         "G1": [17, 18, 19],
+         "G2": [14, 15, 16],
+         }
+    x = pd.DataFrame(x)
 
-    alex = dummy_matrix_of_new_student(alex, x)
-    assert (alex["s_Moscow"] == 1).any()
+    new_student = {
+        "school": "Nevermore",
+        "sex": "F",
+        "age": 16,
+        "Mjob": "teacher",
+        "Fjob": "health",
+        "higher": "yes",
+        "activities": "yes",
+        "G1": 17,
+        "G2": 14}
+    new_student = pd.DataFrame(new_student, index=[0])
+
+    new_student_dummy = mf.dummy_matrix_of_new_student(new_student, x)
+
+    dummy_test = {"school": 1,
+                         "sex": 0,
+                         "age": 16,
+                         "higher": 1,
+                         "activities": 1,
+                         "G1": 17,
+                         "G2": 14,
+                         "m_at_home": 0,
+                         "m_services": 0,
+                         "m_teacher": 1,
+                         "f_health": 1,
+                         "f_other": 0,
+                         "f_services": 0}
+    dummy_test = pd.Series(dummy_test)
+
+    assert new_student_dummy.equals(dummy_test)
 
 
 def test_dummy_matrix_for_new_student_has_no_categorical_features():
