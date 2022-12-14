@@ -175,7 +175,7 @@ def test_compute_model():
     x = pd.DataFrame(x)
     y = pd.DataFrame(y)
 
-    w, b, r_sq = compute_model(x, y)
+    w, b, r_sq = mf.compute_model(x, y)
 
     assert math.isclose(w, 3) and math.isclose(b, 2) and r_sq == 1
 
@@ -192,9 +192,9 @@ def test_compute_model_with_single_point():
     x = pd.DataFrame(x)
     y = pd.DataFrame(y)
 
-    w, b, r_sq = compute_model(x, y)
+    w, b, r_sq = mf. compute_model(x, y)
 
-    assert math.isnan(r_sq)
+    assert math.isnan(r_sq) and math.isclose(w, 0) and math.isclose(b, 10)
 
 
 def test_new_student():
