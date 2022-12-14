@@ -154,8 +154,8 @@ def test_dummy_matrices_do_not_change_data_with_numeric_values():
     This function tests a limit case when dummy_matrices() does not alter data with numeric features.
     """
 
-    x_num, y_num = load_data("test_data/test_data_numeric_features.csv")
-    assert dummy_matrices(x_num).equals(x_num)
+    x_num = pd.DataFrame([1, 2, 3], columns = ["Numeric values"])
+    assert mf.dummy_matrices(x_num).equals(x_num)
 
 
 def test_compute_model():
