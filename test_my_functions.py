@@ -126,14 +126,27 @@ def test_dummy_matrices_performed_correctly():
 
 
 
-def test_data_with_dummy_matrices_has_no_categorical_features(dummy_data):
+def test_data_with_dummy_matrices_has_no_categorical_features():
     """
     This function tests that after applying dummy_matrices() to data it will not contain
     categorical features. For this purpose the function is given a parameter dummy_data from pytest-fixture
     containing dataset with dummy matrices. In this case the number of columns with categorical features is 0.
     """
 
-    assert dummy_data.select_dtypes(include="object").shape[1] == 0
+    x = {"school": ["Hogwarts", "Hogwarts", "Nevermore"],
+                 "sex": ["M", "F", "F"],
+                 "age": [15, 14, 16],
+                 "Mjob": ["teacher", "at_home", "services"],
+                 "Fjob": ["health", "other", "services"],
+                 "higher": ["yes", "no", "yes"],
+                 "activities": ["no", "yes", "yes"],
+                 "G1": [17, 18, 19],
+                 "G2": [14, 15, 16],
+                 }
+    x = pd.DataFrame(x)
+    x_dummy = mf.dummy_matrices(x)
+
+    assert x_dummy.select_dtypes(include="object").shape[1] == 0
 
 
 def test_dummy_matrices_do_not_change_data_with_numeric_values():
