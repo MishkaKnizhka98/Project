@@ -8,6 +8,22 @@ model based on a dataset of students. To train the model the LinearRegression cl
 >
 > *- doctor Brand, Interstellar*
 
+
+## How to Run
+
+Before running the code, the following external libraries are necessary to install:
+
+* Pandas
+* Numpy
+* Matplotlib
+* Scikit-learn
+* Pytest
+
+To run the linear regression algorithm, a user must install all files and folders from the repository into a single directory. After that the user must run the code inside *main.py*. 
+
+If the user wants to run the algorithm on a new dataset *new_data.csv*, he/she must add this dataset into the folder *data/* and indicate its path in `mf.load_data("data/new_data.csv")`
+
+
 ## Introduction
 
 ### Linear Regression Tutorial
@@ -68,7 +84,7 @@ Dummy matrices are a set of columns that replace a single categorical feature. E
 represents one of the feature values and has indicators 1, if a training example has 
 this feature value, or 0, if the example does not have this feature value. A simple schematic 
 illustration of dummy matrices is represented below. In order to split categorical features into 
-dummy matrices, `get_dummies()` method is used.
+dummy matrices in this algorithm, `get_dummies()` function is used.
 
 <p align="center">
   <img src="https://media.geeksforgeeks.org/wp-content/uploads/20201210102727/Screenshot708.jpg">
@@ -86,36 +102,37 @@ In the project there are three folder. `/data` contains datasets that can be use
 This project includes three Python code files: `main.py`, `my_functions.py` and `test_my_functions.py`. In *main.py* I trained the linear regression model, plotted the dependence of target feature on numeric features and to predicted the final grade for a new student. *my_functions.py* contains all functions that were employed in *main.py*. *test_my_functions.py* is used to test the functions. Below there is a brief description of each .py file.
 
 ### my_functions.py
-This file includes all functions and their documentation that are not present in external modules and that are used in main.py.
+This file includes all functions and their documentation that are not present in external modules and that are used in *main.py*.
 
-* load_data() - loads a .csv file and splits it into input x and output y
-* dummy_matrices() - splits categorical features of x into dummy matrices
-* compute_model() - fits the model with LinearRegression class and computes weights w,b and the coefficient of determination r_sq 
-* new_student() - creates features of a new student
-* dummy_matrix_of_new_student()  - splits the new student's categorical features into a dummy matrix
-* predict() - using computed w and b, estimates the final grade for the enw student
-* plot() - plots dependences of the final grade on numeric features of the input
+* load_data() - loads a .csv file and splits it into input x and output y.
+* dummy_matrices() - splits categorical features of x into dummy matrices.
+* compute_model() - fits the model with LinearRegression class and computes weights w,b and the coefficient of determination r_sq.
+* new_student() - creates features of a new student.
+* dummy_matrix_of_new_student()  - splits the new student's categorical features into a dummy matrix.
+* predict() - using computed w and b, estimates the final grade for the new student. If the estimated grade is higher than its maximum limit value, it will be trimmed to the limit and the user will get a warning.
+* plot() - plots dependences of the final grade on numeric features of the input.
 
 It is worth noting that in `new_student()` I raised the age limit to 25 years in order to make the choice more diverse. 
 
+
 ### main.py
-First, I imported *my_functions.py* module to get access to all necessary functions. In order to turn off `SettingWithCopyWarning alert`, I set the option `mode.chained_assignment` to `None`. In order to print the trained parameters w as `numpy.ndarray` to 3 decimal places, I used the `np.set_printoptions()` method.
+First, I imported *my_functions.py* module to get access to all necessary functions. In order to turn off `SettingWithCopyWarning` alert, I set the option `mode.chained_assignment` to `None`. In order to print the trained parameters w as `numpy.ndarray` to 3 decimal places, I used the `np.set_printoptions()` method.
 
 ```
-from my_functions import *
+import my_functions as mf
 
 pd.set_option('mode.chained_assignment', None)  # To turn off SettingWithCopyWarning
 np.set_printoptions(formatter={'float': lambda x: "{0:0.3f}".format(x)})  # To print the predicted w to 3 decimals places
 ```
 
-To perform the linear regression, I used the "student-mat.csv" file. Using load_data(), I splitted the dataset into the input features array `x` and target feature `y`. Then I used `dummy_matrices()`to turn categorical features of `x` into dummy matrices. As a result, the function returned `x_dummy` with replaaced columns.
+To perform the linear regression, I used the "student-mat.csv" file. Using `mf.load_data()`, I splitted the dataset into the input features array `x` and target feature `y`. Then I used `mf.dummy_matrices()` to turn categorical features of `x` into dummy matrices. As a result, the function returned `x_dummy` with replaced columns.
 
 ```
-x, y = load_data("data/student-mat.csv")
-x_dummy = dummy_matrices(x)
+x, y = mf.load_data("data/student-mat.csv")
+x_dummy = mf.dummy_matrices(x)
 ```
 
-After that the training set (`x_dummy`, `y`) was ready to insert into `compute_model()` as parameters to calculate the weights of the model. 
+After that the training set (`x_dummy`, `y`) was ready to be inserted into `mf.compute_model()` as parameters to calculate the weights of the model. 
 
 <p align="center">
   <img src="./Images/x.png">
@@ -125,38 +142,38 @@ After that the training set (`x_dummy`, `y`) was ready to insert into `compute_m
   <img src="./Images/x_dummy.png">
 </p>
 
-Once (`x_dummy`, `y`) were given to `compute_model()`, it returned trained weights `w`, `b` and the coefficient of determination `r_sq`. As seen below, `r_sq` is higher than 0.8 what represents a good linear fit.
+Once (`x_dummy`, `y`) were given to `mf.compute_model()`, it returned trained weights `w`, `b` and the coefficient of determination `r_sq`. As seen below, `r_sq` is higher than 0.8 what represents a good linear fit.
 
 <p align="center">
   <img src="./Images/compute_model.png">
 </p>
 
-Given the trained weights, we can now use the model for new examples. Let us consider a new student Lorenzo, whose final grade needs to be estimated. In order to type into Lorenzo's features, I used the function `new_student()` which determines a new student's features analogous to features in the input `x`:
+Given the trained weights, we can now use the model for new examples. Let us consider a new student Lorenzo, whose final grade needs to be estimated. In order to type into Lorenzo's features, I used the function `mf.new_student()` which determines a new student's features analogous to features in the input `x`:
 
 ```
-lorenzo = new_student(x)
+lorenzo = mf.new_student(x)
 ```
 
 <p align="center">
   <img src="./Images/lorenzo.png">
 </p>"
 
-After defining Lorenzo's features, I converted his categorical features into dummy matrices using `dummy_matrix_of_new_student()`:
+After defining Lorenzo's features, I converted his categorical features into dummy matrices using `mf.dummy_matrix_of_new_student()`:
 
 ```
-lorenzo_dummy = dummy_matrix_of_new_student(lorenzo,x)
+lorenzo_dummy = mf.dummy_matrix_of_new_student(lorenzo,x)
 ```
 
-In order to estimate Lorenzo's final grade, I applied `predict()` and assigned the returned value to `y_pred`:
+In order to estimate Lorenzo's final grade, I applied `mf.predict()` and assigned the returned value to `y_pred`:
 
 <p align="center">
   <img src="./Images/y_pred.png">
 </p>
 
-Lastly, in order to visually verify the accuracy of the trained model, `plot()` was used. In case of the dataset "student-mat.csv" the figures are the following:
+Lastly, in order to visually verify the accuracy of the trained model, `mf.plot()` was used. In case of the dataset "student-mat.csv" the figures are the following:
 
 ```
-plot(x, y, w, b)
+mf.plot(x, y, w, b)
 ```
 
 <p align="center">
