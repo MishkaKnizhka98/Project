@@ -8,10 +8,20 @@ model based on a dataset of students. To train the model the LinearRegression cl
 >
 > *- doctor Brand, Interstellar*
 
+## Table of contents
+1. [How to Run the Program](#runtheprogram)
+2. [Introduction](#introduction)
+    1. [Linear Regression Tutorial](#theory)
+    2. [Problem Statement](#problem)
+3. [Structure of the project](#structure)
+    1. [my_functions.py](#my_functions)
+    2. [main.py](#main)
+    3. [test_my_functions.py](#test_my_functions)
+4. [Conclusion](#conclusion)
 
-## How to Run
+## How to Run the Program <a name="runtheprogram"></a>
 
-Before running the code, the following external libraries are necessary to install:
+The project was written in Python 3.9. Before running the code, the following external libraries are necessary to be installed:
 
 * Pandas
 * Numpy
@@ -21,12 +31,14 @@ Before running the code, the following external libraries are necessary to insta
 
 To run the linear regression algorithm, a user must install all files and folders from the repository into a single directory. After that the user must run the code inside *main.py*. 
 
-If the user wants to run the algorithm on a new dataset *new_data.csv*, he/she must add this dataset into the folder *data/* and indicate its path in `mf.load_data("data/new_data.csv")`
+If the user wants to run the algorithm on a new dataset *new_data.csv*, he/she must add this dataset into the folder *data/* and indicate its path in `mf.load_data("data/new_data.csv")` in *main.py*. After that the user must run the code in *main.py*.
+
+The full description of code is shown in **Structure of the Project**.
 
 
-## Introduction
+## Introduction <a name="introduction"></a>
 
-### Linear Regression Tutorial
+### Linear Regression Tutorial <a name="theory"></a>
 This section represents a brief theoretical background of linear regression and how to implement 
 it in Python. Suppose that one has a set of observations (**examples**) that possess some 
 information (**features**) of each observation. For example, it could be a dataset of people, 
@@ -49,7 +61,7 @@ Using the computed (trained) parameters, it is possible to create the linear mod
 In order to estimate the accuracy of your model, the **coefficient of determination** $R^2 \in [0.1]$ is used. A larger $R^2$ indicates a better fit and the largest value $R^2 = 1$ corresponds to a perfect fit, when the vaues of actual target and predicted target fit completely to each other.  
 
 
-### Problem Statement
+### Problem Statement <a name="problem"></a>
 The goal of this project was to create a linear regression model to predict the final grade of a 
 student. For this purpose I used a database of students from two high schools in Portugal. Using 
 this model, I managed to predict a new student's final grade for a certain subject. 
@@ -95,13 +107,13 @@ Once the input dataset is numeric, it is possible to train a linear regression m
 
 
 
-## Structure of the project
+## Structure of the project <a name="structure"></a>
 
-In the project there are three folder. `/data` contains datasets that can be used in the linear regression analysis: "student-mat.csv", "student-por.csv" and "student.txt", where additional information about the datasets is shown. In case there are new datasets, a user should add them to the */data* folder. `/test_data` includes data used for testing functions. `/Images` contains all images used in the *README.md* file.
+In the project there are two folders. `/data` contains datasets that can be used in the linear regression analysis: "student-mat.csv", "student-por.csv" and "student.txt", where additional information about the datasets is shown. In case there are new datasets, a user should add them to the */data* folder. `/Images` contains all images used in the *README.md* file.
 
 This project includes three Python code files: `main.py`, `my_functions.py` and `test_my_functions.py`. In *main.py* I trained the linear regression model, plotted the dependence of target feature on numeric features and to predicted the final grade for a new student. *my_functions.py* contains all functions that were employed in *main.py*. *test_my_functions.py* is used to test the functions. Below there is a brief description of each .py file.
 
-### my_functions.py
+### my_functions.py <a name="my_functions"></a>
 This file includes all functions and their documentation that are not present in external modules and that are used in *main.py*.
 
 * load_data() - loads a .csv file and splits it into input x and output y.
@@ -115,7 +127,7 @@ This file includes all functions and their documentation that are not present in
 It is worth noting that in `new_student()` I raised the age limit to 25 years in order to make the choice more diverse. 
 
 
-### main.py
+### main.py <a name="main"></a>
 First, I imported *my_functions.py* module to get access to all necessary functions. In order to turn off `SettingWithCopyWarning` alert, I set the option `mode.chained_assignment` to `None`. In order to print the trained parameters w as `numpy.ndarray` to 3 decimal places, I used the `np.set_printoptions()` method.
 
 ```
@@ -183,43 +195,40 @@ mf.plot(x, y, w, b)
 As seen from the graphs, the model relatively well found the relation between students' features and their final grades.
 
 
-### test_my_functions.py
-This module is used to test the functions from *my_functions.py*. I chose **pytest** as a testing library. There are at least two unit tests for each function (except for `plot()`) that reflect a typical use case and a limit use case. Below there is a list of all testing functions from *test_my_functions.py*. Each testing function has a brief documentation inside the module.
+### test_my_functions.py <a name="test_my_functions"></a>
+This module is used to test the functions from *my_functions.py*. I chose **pytest** as a testing library. There are at least two unit tests for each function (except for `mf.plot()`) that reflect a typical use case and a limit use case. Below there is a list of all testing functions from *test_my_functions.py*. Each testing function has a brief documentation inside the module.
 
-For `load_data()`:
+For `mf.load_data()`:
 * test_data_load_correctly()
-* test_data_load_limit_case()
+* test_data_misses_column()
 
-For `dummy_matrices()`:
+For `mf.dummy_matrices()`:
 * test_dummy_matrices_performed_correctly()
 * test_data_with_dummy_matrices_has_no_categorical_features()
 * test_dummy_matrices_do_not_change_data_with_numeric_values()
 
-For `compute_model()`:
+For `mf.compute_model()`:
 * test_compute_model() 
 * test_compute_model_with_single_point()
 
-For `new_student()`:
+For `mf.new_student()`:
 * test_new_student()
 * test_two_new_students()
 
-For `dummy_matrix_of_new_student()`:
+For `mf.dummy_matrix_of_new_student()`:
 * test_dummy_matrix_of_new_student()
 * test_dummy_matrix_for_new_student_has_no_categorical_features()
 
-For `predict()`:
+For `mf.predict()`:
 * test_predict()
-* test_that_predicted_output_higher_than_twenty_notified()
+* test_that_predicted_output_higher_than_twenty_warned()
 
-For `plot()`:
+For `mf.plot()`:
 * test_plot()
 
 
-**NOTE** The tests `test_new_student()`, `test_two_new_students()`, `test_dummy_matrix_of_new_student()` and `test_dummy_matrix_for_new_student_has_no_categorical_features()` contain the *new_student()* function which contains an interactive function *input()*. Therefore, in order to pass these tests, they should be called separately with the `-s` flag. For example,
+**NOTE** In order to make `test_new_student()` and `test_two_new_students()` pass, I used `monkeypatch` as a parameter that mocks a user's input with given features. Also, for `test_plot()` I used the `@mock.patch()` decorator to mock `plt.show()` inside `mf.plot()` and to assert that the method is called.
 
-```
-pytest test_my_functions.py::test_new_student -s
-```
 
-## Conclusion
+## Conclusion <a name="conclusion"></a>
 To sum up, the constructed algorithm relatively well finds the relation between students' features and their final grades what allows us to estimate the final grade of a new student. This project aims to represent a beginner level to work in the Machine Learning field. Therefore, I hope that this code will help you understand better the linear regression analysis and that you will enjoy the journey.

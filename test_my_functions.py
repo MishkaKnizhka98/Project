@@ -472,7 +472,7 @@ def test_predict():
 
 
 
-def test_that_predicted_output_higher_than_twenty_notified():
+def test_that_predicted_output_higher_than_twenty_warned():
     """
     This function tests that if a predicted output "G3" is higher than 20 (maximum G3 value),
     then a user will get a warning and the predicted value will be trimmed to 20.
