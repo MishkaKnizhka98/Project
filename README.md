@@ -29,7 +29,7 @@ The project was written in Python 3.9. Before running the code, the following ex
 * Scikit-learn
 * Pytest
 
-To run the linear regression algorithm, a user must install all files and folders from the repository into a single directory. After that the user must run the code inside *main.py*. 
+To run the program, a user must install all files and folders from the repository into a single directory. After that the user must run the code inside *main.py*. 
 
 If the user wants to run the algorithm on a new dataset *new_data.csv*, he/she must add this dataset into the folder *data/* and indicate its path in `mf.load_data("data/new_data.csv")` in *main.py*. After that the user must run the code in *main.py*.
 
