@@ -33,7 +33,7 @@ To run the linear regression algorithm, a user must install all files and folder
 
 If the user wants to run the algorithm on a new dataset *new_data.csv*, he/she must add this dataset into the folder *data/* and indicate its path in `mf.load_data("data/new_data.csv")` in *main.py*. After that the user must run the code in *main.py*.
 
-The full description of code is shown in **Structure of the Project**.
+The full description of code is shown in [Structure of the project](#structure).
 
 
 ## Introduction <a name="introduction"></a>
