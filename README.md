@@ -33,7 +33,7 @@ To run the program, a user must install all files and folders from the repositor
 
 If the user wants to run the algorithm on a new dataset *new_data.csv*, he/she must add this dataset into the folder *data/* and indicate its path in `mf.load_data("data/new_data.csv")` in *main.py*. After that the user must run the code in *main.py*.
 
-The full description of code is shown in [Structure of the project](#structure).
+The full description of the code is shown in [Structure of the project](#structure).
 
 
 ## Introduction <a name="introduction"></a>
@@ -109,7 +109,7 @@ Once the input dataset is numeric, it is possible to train a linear regression m
 
 ## Structure of the project <a name="structure"></a>
 
-In the project there are two folders. `/data` contains datasets that can be used in the linear regression analysis: "student-mat.csv", "student-por.csv" and "student.txt", where additional information about the datasets is shown. In case there are new datasets, a user should add them to the */data* folder. `/Images` contains all images used in the *README.md* file.
+In the project there are two folders. `/data` contains datasets that can be used in the linear regression analysis: "student-mat.csv" and "student-por.csv", and also a text file "student.txt", where additional information about the datasets is shown. In case there are new datasets, a user should add them to the */data* folder. `/Images` contains all images used in the *README.md* file.
 
 This project includes three Python code files: `main.py`, `my_functions.py` and `test_my_functions.py`. In *main.py* I trained the linear regression model, plotted the dependence of target feature on numeric features and to predicted the final grade for a new student. *my_functions.py* contains all functions that were employed in *main.py*. *test_my_functions.py* is used to test the functions. Below there is a brief description of each .py file.
 
