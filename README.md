@@ -151,6 +151,10 @@ After that the training set (`x_dummy`, `y`) was ready to be inserted into `mf.c
 </p>
 
 <p align="center">
+  <img src="./Images/y.png">
+</p>
+
+<p align="center">
   <img src="./Images/x_dummy.png">
 </p>
 
