@@ -21,15 +21,17 @@ print("Predicted w: ", w, "\n")
 print("Predicted b: ", "%.3f" % b, "\n")
 print("Coefficient of determination: ", "%.3f" % r_sq, "\n")
 
-# Here we want to predict the final grade "G3" of a new student Lorenzo
-# In order to turn Lorenzo's categorical features into a dummy matrix, mf.dummy_matrix_of_new_student() is used
-lorenzo = mf.new_student(x)
+# Here we want to predict the final grade "G3" of a new student
+# In order to turn the new student's categorical features into a dummy matrix,
+# mf.dummy_matrix_of_new_student() is used
+new_st_name = input("Please write the new student's name: ")
+new_st = mf.new_student(x)
 
-lorenzo_dummy = mf.dummy_matrix_of_new_student(lorenzo,x)
+new_st_dummy = mf.dummy_matrix_of_new_student(new_st,x)
 
-y_pred = mf.predict(lorenzo_dummy, w, b)
+y_pred = mf.predict(new_st_dummy, w, b)
 
-print("The predicted G3 for Lorenzo is : ", "%.3f" % y_pred)
+print("The predicted G3 for" + new_st_name + "  is : ", "%.3f" % y_pred)
 
 # In order to visually verify the accuracy of the trained model, we use plot()
 # to depict dependencies of the output "G3" on numeric features
