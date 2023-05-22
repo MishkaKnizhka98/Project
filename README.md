@@ -200,7 +200,7 @@ As seen from the graphs, the model relatively well found the relation between st
 
 
 ### test_my_functions.py <a name="test_my_functions"></a>
-This module is used to test the functions from *my_functions.py*. I chose **pytest** as a testing library. There are at least two unit tests for each function (except for `mf.plot()`) that reflect a typical use case and a limit use case. Below there is a list of all testing functions from *test_my_functions.py*. Each testing function has a brief documentation inside the module.
+This module is used to test the functions from *my_functions.py*. I chose **pytest** as a testing library. There are at least two unit tests for each function (except for `mf.plot()` and `mf.compute_model()`) that reflect a typical use case and a limit use case. Below there is a list of all testing functions from *test_my_functions.py*. Each testing function has a brief documentation inside the module.
 
 For `mf.load_data()`:
 * test_data_load_correctly()
@@ -213,7 +213,6 @@ For `mf.dummy_matrices()`:
 
 For `mf.compute_model()`:
 * test_compute_model() 
-* test_compute_model_with_single_point()
 
 For `mf.new_student()`:
 * test_new_student()
