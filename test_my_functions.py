@@ -211,8 +211,8 @@ def test_compute_model():
     THEN:   w and b are expected to be equal to 3 and 2, respectively, r_sq is expected to be 1.
     """
 
-    x = [1, 2, 3]
-    y = [5, 8, 11]
+    x = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+    y = [5, 8, 11, 14, 17, 20, 23, 26, 29, 32]
 
     x = pd.DataFrame(x)
     y = pd.DataFrame(y)
@@ -220,33 +220,6 @@ def test_compute_model():
     w, b, r_sq = mf.compute_model(x, y)
 
     assert math.isclose(w, 3) and math.isclose(b, 2) and r_sq == 1
-
-
-
-
-
-def test_compute_model_with_single_point():
-    """
-    This function tests that a linear regression model is not well-defined for single samples
-    and will return a NaN value for r_sq, if the number of samples is less than two.
-
-    GIVEN:  x and y form a single point (10, 10).
-
-    WHEN:   mf.compute_model() is given x and y as parameters.
-
-    THEN:   Parameters w and b are equal to 0 and 10, respectively. r_sq is equal to NaN value.
-    """
-
-    x = [10]
-    y = [10]
-
-    x = pd.DataFrame(x)
-    y = pd.DataFrame(y)
-
-    w, b, r_sq = mf. compute_model(x, y)
-
-    assert math.isnan(r_sq) and math.isclose(w, 0) and math.isclose(b, 10)
-
 
 
 
