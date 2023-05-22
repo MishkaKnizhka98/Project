@@ -27,11 +27,11 @@ print("Coefficient of determination: ", "%.3f" % r_sq, "\n")
 new_st_name = input("Please write the new student's name: ")
 new_st = mf.new_student(x)
 
-new_st_dummy = mf.dummy_matrix_of_new_student(new_st,x)
+new_st_dummy = mf.dummy_matrix_of_new_student(new_st, x)
 
 y_pred = mf.predict(new_st_dummy, w, b)
 
-print("The predicted G3 for" + new_st_name + "  is : ", "%.3f" % y_pred)
+print("The predicted G3 for " + new_st_name + "  is : ", "%.3f" % y_pred)
 
 # In order to visually verify the accuracy of the trained model, we use plot()
 # to depict dependencies of the output "G3" on numeric features

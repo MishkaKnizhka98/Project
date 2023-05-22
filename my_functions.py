@@ -6,6 +6,7 @@ import warnings
 import matplotlib.pyplot as plt
 from sklearn.preprocessing import LabelEncoder #To indicate binary categorical features as 0 and 1
 from sklearn.linear_model import LinearRegression #To fit a linear model
+from sklearn.model_selection import train_test_split
 
 
 def load_data(file_name):
@@ -121,13 +122,13 @@ def compute_model(x, y):
         r_sq : scalar
                 Coefficient of determination R^2
     """
-
+    x_train, x_test, y_train, y_test = train_test_split(x, y, test_size=0.2)
     model = LinearRegression()
-    model.fit(x, y)
+    model.fit(x_train, y_train)
 
     w = model.coef_
     b = model.intercept_
-    r_sq = model.score(x,y)
+    r_sq = model.score(x_test,y_test)
 
     return w, b, r_sq
 
