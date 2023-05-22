@@ -104,7 +104,9 @@ def dummy_matrices(data):
 
 def compute_model(x, y):
     """
-    Computes a linear regression model using the LinearRegression class.
+    Computes a linear regression model using the LinearRegression class. To evaluate the accuracy of the model,
+    the dataset is split in training and test sets. The training set outputs parameters of the model.
+    The test data outputs the coefficient of determination R^2.
 
     Parameters:
         ----------
@@ -128,7 +130,7 @@ def compute_model(x, y):
 
     w = model.coef_
     b = model.intercept_
-    r_sq = model.score(x_test,y_test)
+    r_sq = model.score(x_test, y_test)
 
     return w, b, r_sq
 
