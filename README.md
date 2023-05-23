@@ -164,20 +164,20 @@ Once (`x_dummy`, `y`) were given to `mf.compute_model()`, it returned trained we
   <img src="./Images/compute_model.png">
 </p>
 
-Given the trained weights, we can now use the model for new examples. Let us consider a new student Lorenzo, whose final grade needs to be estimated. In order to type into Lorenzo's features, I used the function `mf.new_student()` which determines a new student's features analogous to features in the input `x`:
+Given the trained weights, we can now use the model for new examples. Let us consider a new student, for example Lorenzo, whose final grade needs to be estimated. In order to type into Lorenzo's features, I used the function `mf.new_student()` which determines a new student's features analogous to features in the input `x`:
 
 ```
-lorenzo = mf.new_student(x)
+new_st = mf.new_student(x)
 ```
 
 <p align="center">
-  <img src="./Images/lorenzo.png">
-</p>"
+  <img src="./Images/new_student.png">
+</p>
 
 After defining Lorenzo's features, I converted his categorical features into dummy matrices using `mf.dummy_matrix_of_new_student()`:
 
 ```
-lorenzo_dummy = mf.dummy_matrix_of_new_student(lorenzo,x)
+new_st_dummy = mf.dummy_matrix_of_new_student(new_st,x)
 ```
 
 In order to estimate Lorenzo's final grade, I applied `mf.predict()` and assigned the returned value to `y_pred`:
