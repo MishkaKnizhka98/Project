@@ -164,7 +164,7 @@ Once (`x_dummy`, `y`) were given to `mf.compute_model()`, it returned trained we
   <img src="./Images/compute_model.png">
 </p>
 
-Given the trained weights, we can now use the model for new examples. Let us consider a new student, for example Lorenzo, whose final grade needs to be estimated. In order to type into Lorenzo's features, I used the function `mf.new_student()` which determines a new student's features analogous to features in the input `x`:
+Given the trained weights, we can now use the model for new examples. Let us consider a new student Lorenzo, whose final grade needs to be estimated. In order to type into Lorenzo's features, I used the function `mf.new_student()` which determines a new student's features analogous to features in the input `x`:
 
 ```
 new_st = mf.new_student(x)
